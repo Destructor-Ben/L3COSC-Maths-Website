@@ -130,5 +130,5 @@ dist
 .pnp.*
 
 # Custom
-/.svelte-kit
-/build
+.svelte-kit/
+build/
