@@ -1,12 +1,5 @@
 import * as Colors from '../colors';
-
-export type Function = 
-{
-  name: string;
-  func: (x: number) => number; // This is assumed to be continuous
-  color: string;
-  lineWidth?: number; // Set to null for a default value
-};
+import type { Function } from '../maths/function';
 
 export default class GraphRenderer
 {
@@ -52,16 +45,15 @@ export default class GraphRenderer
     ctx.fillRect(0, 0, this.width, this.height);
 
     // Axes
-    const xAxisY = this.height / 2 - this.cameraY;
-    const yAxisX = this.width / 2 - this.cameraX;
+    const origin = this.toCanvasCoords(0, 0);
 
     ctx.strokeStyle = Colors.LightColor;
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(0, xAxisY);
-    ctx.lineTo(this.width, xAxisY);
-    ctx.moveTo(yAxisX, 0);
-    ctx.lineTo(yAxisX, this.height);
+    ctx.moveTo(0, origin.y);
+    ctx.lineTo(this.width, origin.y);
+    ctx.moveTo(origin.x, 0);
+    ctx.lineTo(origin.x, this.height);
     ctx.stroke();
 
     // TODO: arrows
@@ -71,24 +63,38 @@ export default class GraphRenderer
 
     // The functions
     this.functions.forEach(func => {
-      for (let x = 0; x < this.width; x++)
+      // TODO: calculate the left and right of the view space and use them as -1 and 1 instead
+      for (let x = -6.28; x <= 6.28; x += 0.01)
       {
         const y = func.func(x);
+        const coords = this.toCanvasCoords(x, y);
 
-        if (x === 0)
+        // TODO: don't hardcode this
+        if (x === -6.28)
         {
           ctx.strokeStyle = func.color;
-          ctx.lineWidth = func.lineWidth ?? 1;
+          ctx.lineWidth = 1;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
           ctx.beginPath();
-          ctx.moveTo(x, y);
+          ctx.moveTo(coords.x, coords.y);
         }
         else
         {
-          ctx.lineTo(x, y);
+          ctx.lineTo(coords.x, coords.y);
         }
       }
 
       ctx.stroke();
     });
+  }
+
+  // TODO: implemen this by changing the canvases coordinate system
+  private toCanvasCoords(x: number, y: number): { x: number, y: number }
+  {
+    return {
+      x: (x + this.cameraX) * this.width / this.scaleX + this.width / 2,
+      y: (y + this.cameraY) * this.height / this.scaleY + this.height / 2
+    };
   }
 }

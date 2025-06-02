@@ -86,6 +86,9 @@
   });
 </script>
 
+<h1>This is a test</h1>
+<a href="/visualizations">Go here for the real code</a>
+<br />
 <canvas id="canvas" width="800" height="600"></canvas>
 
 <style>
