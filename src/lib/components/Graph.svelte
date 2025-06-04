@@ -29,7 +29,6 @@
   let cameraPos = $state(initialCameraPos);
   let scale = $state(initialScale);
 
-// TODO: move teh effects into functions since it makes them easier to read, since svelte will track dependencies in indirect functions, which means I can have as many funtifunctions as I want (as long as they are aclled synchronously)
   // Set up canvas
   $effect(() =>
   {
@@ -43,19 +42,10 @@
     height = canvas.height;
   });
 
-  // Render whenever the graph data changes
-  $effect(() =>
+  // #region Rendering
+
+  function drawAxes(c: CanvasRenderingContext2D)
   {
-    if (!ctx)
-      return;
-
-    const c = ctx!;
-
-    // Background
-    c.fillStyle = Colors.BackgroundColor;
-    c.fillRect(0, 0, width, height);
-
-    // Axes
     const origin = toCanvasCoords(0, 0);
     const linePadding = 15;
 
@@ -80,11 +70,16 @@
       c.drawImage(image, origin.x - arrowSize / 2, linePadding, arrowSize, arrowSize);
     };
     //ctx.drawImage(ArrowIcon, 0, 0);
+  }
 
+  function drawGrid(c: CanvasRenderingContext2D)
+  {
     // Grid - TODO
     // TODO: units on the axes
+  }
 
-    // The functions
+  function drawFunctions(c: CanvasRenderingContext2D)
+  {
     functions.forEach(func => {
       const minX = fromCanvasCoords(0, 0).x;
       const maxX = fromCanvasCoords(canvas.width, 0).x;
@@ -116,7 +111,26 @@
       // Finish the line
       c.stroke();
     });
+  }
+
+  // Render whenever the graph data changes
+  $effect(() =>
+  {
+    if (!ctx)
+      return;
+
+    const c = ctx!;
+
+    // Background
+    c.fillStyle = Colors.BackgroundColor;
+    c.fillRect(0, 0, width, height);
+
+    drawAxes(c);
+    drawGrid(c);
+    drawFunctions(c);
   });
+
+  // #endregion
 
   // TODO: ensure both of these work
 // TODO: maybe rework how these work since Idk how to apply rotation to imags and it might just be easier to use transforms for everything
