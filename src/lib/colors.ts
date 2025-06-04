@@ -1,12 +1,12 @@
 export const BackgroundColor = "#212129";
 export const MidgroundColor = "#343440";
 export const ForegroundColor = "#454552";
-export const LightColor = "#ededed";
+export const LightColor = "#fefefe";
 
 // TODO: redo these
-export const ContrastRed = "#f00";
-export const ContrastGreen = "#0f0";
-export const ContrastBlue = "#00f";
-export const ContrastCyan = "#ff";
-export const ContrastYellow = "#0ff";
-export const ContrastMagenta = "#f0f";
+export const ContrastRed = "#ff0d21";
+export const ContrastGreen = "#1dff0d";
+export const ContrastBlue = "#0d76ff";
+export const ContrastCyan = "#0df7ff";
+export const ContrastYellow = "#fff30d";
+export const ContrastMagenta = "#ff0d9e";
