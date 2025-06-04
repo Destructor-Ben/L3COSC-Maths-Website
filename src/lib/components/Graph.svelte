@@ -142,6 +142,19 @@
 
   // #region Input
 
+  function handleMouseMove(event: MouseEvent)
+  {
+    // Check if the left mouse button is pressed
+    if (!(event.buttons & 1))
+      return;
+
+    // Move the camera
+    // TODO: check if the signs of these are correct
+    // TODO: the scaling for this is dodgy, leads to the mouse sliding around
+    cameraPos.x += event.movementX * scale.x / 500;
+    cameraPos.y += event.movementY * scale.y / 500;
+  }
+
   function handleMouseWheel(event: WheelEvent)
   {
     event.preventDefault();
@@ -158,6 +171,7 @@
     id="canvas"
     width={width}
     height={height}
+    onmousemove={handleMouseMove}
     onwheel={handleMouseWheel}
   ></canvas>
 </div>
