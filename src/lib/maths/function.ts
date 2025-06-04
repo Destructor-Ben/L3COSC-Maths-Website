@@ -1,3 +1,4 @@
+// TODO: add suport for discontinuous functions
 export type Function = 
 {
   name: string;

@@ -6,9 +6,13 @@
 <Graph
   width={800}
   height={600}
-  scale={{ x: 10, y: 10 }}
+  initialScale={{ x: 10, y: 10 }}
   functions={[
-    { name: "f(x)", func: (x: number) => Math.sin(x), color: Colors.ContrastRed },
-    { name: "g(x)", func: (x: number) => Math.cos(x), color: "blue" }
+    { name: "sin(x)", func: (x: number) => Math.sin(x), color: Colors.ContrastRed },
+    { name: "cos(x)", func: (x: number) => Math.cos(x), color: Colors.ContrastBlue },
+    { name: "tan(x)", func: (x: number) => Math.tan(x), color: Colors.ContrastGreen },
+    //{ name: "sec(x)", func: (x: number) => 1 / Math.cos(x), color: Colors.ContrastCyan },
+    //{ name: "csc(x)", func: (x: number) => 1 / Math.sin(x), color: Colors.ContrastMagenta },
+    //{ name: "cot(x)", func: (x: number) => 1 / Math.tan(x), color: Colors.ContrastYellow },
   ]}
 />

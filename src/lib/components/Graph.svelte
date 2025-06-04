@@ -11,19 +11,24 @@
   {
     width: number;
     height: number;
-    cameraPos?: { x: number; y: number };
-    scale?: { x: number; y: number };
+    initialCameraPos?: { x: number; y: number };
+    initialScale?: { x: number; y: number };
     functions?: Array<Function>;
   }
 
   let {
     width, 
     height,
-    cameraPos = { x: 0, y: 0 },
-    scale = { x: 1, y: 1 },
+    initialCameraPos = { x: 0, y: 0 },
+    initialScale = { x: 1, y: 1 },
     functions = [],
   }: Props = $props();
 
+  // Camera
+  let cameraPos = $state(initialCameraPos);
+  let scale = $state(initialScale);
+
+// TODO: move teh effects into functions since it makes them easier to read, since svelte will track dependencies in indirect functions, which means I can have as many funtifunctions as I want (as long as they are aclled synchronously)
   // Set up canvas
   $effect(() =>
   {
@@ -71,6 +76,7 @@
     functions.forEach(func => {
       const minX = fromCanvasCoords(0, 0).x;
       const maxX = fromCanvasCoords(canvas.width, 0).x;
+      // TODO: this should be dynamic and increase near discontinuities
       const steps = 100; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
       const step = (maxX - minX) / steps;
 
@@ -102,6 +108,7 @@
 
   // TODO: ensure both of these work
 
+// TODO: maybe rework how these work since Idk how to apply rotation to imags and it might just be easier to use transforms for everything
   // #region Cartesian coords to canvas coords
 
   function toCanvasCoords(x: number, y: number): { x: number, y: number }
