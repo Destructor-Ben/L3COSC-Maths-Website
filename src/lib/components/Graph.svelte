@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as Colors from "../colors";
   import type { Function } from "$lib/maths/function";
+  import ArrowIcon from "../img/arrow.svg";
 
   // Canvas state
   let canvas: HTMLCanvasElement;
@@ -68,6 +69,17 @@
     c.stroke();
 
     // TODO: arrow heads on the axes
+    const arrowSize = 30;
+    let image = new Image();
+    image.src = ArrowIcon;
+    image.onload = () => {
+      // X axis arrow
+      c.drawImage(image, width - linePadding, origin.y, arrowSize, arrowSize);
+
+      // Y axis arrow
+      c.drawImage(image, origin.x - arrowSize / 2, linePadding, arrowSize, arrowSize);
+    };
+    //ctx.drawImage(ArrowIcon, 0, 0);
 
     // Grid - TODO
     // TODO: units on the axes
@@ -107,7 +119,6 @@
   });
 
   // TODO: ensure both of these work
-
 // TODO: maybe rework how these work since Idk how to apply rotation to imags and it might just be easier to use transforms for everything
   // #region Cartesian coords to canvas coords
 
