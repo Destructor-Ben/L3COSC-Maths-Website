@@ -111,7 +111,19 @@
       c.translate(origin.x - arrowSize / 2, linePadding - arrowSize / 2);
       c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
 
-      // TODO: arrows on the negative axes and when the origin is out of sight, only show one pair
+      // -X axis
+      c.resetTransform();
+      c.translate(linePadding - arrowSize / 2, origin.y + arrowSize / 2);
+      c.rotate(-Math.PI / 2);
+      c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
+
+      // -Y axis
+      c.resetTransform();
+      c.translate(origin.x + arrowSize / 2, height - linePadding + arrowSize / 2);
+      c.rotate(Math.PI);
+      c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
+
+      // TODO: when the origin is out of sight, only show one pair of arrows (clamp positions)
     }
 
     // X and Y axis labels
