@@ -4,8 +4,8 @@
 </script>
 
 <Graph
-  width={800}
-  height={600}
+  width={700}
+  height={500}
   initialScale={{ x: 10, y: 10 }}
   functions={[
     { name: "sin(x)", func: (x: number) => Math.sin(x), color: Colors.ContrastRed },
