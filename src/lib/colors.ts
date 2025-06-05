@@ -1,7 +1,7 @@
 export const BackgroundColor = "#212129";
 export const MidgroundColor = "#343440";
 export const ForegroundColor = "#454552";
-export const LightColor = "#fefefe";
+export const LightColor = "#fefefe"; // Remember to update any SVGs using this
 
 // TODO: redo these
 export const ContrastRed = "#ff0d21";

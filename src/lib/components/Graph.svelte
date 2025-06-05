@@ -1,6 +1,7 @@
 <script lang="ts">
   import * as Colors from "../colors";
   import type { Function } from "$lib/maths/function";
+  import { untrack } from "svelte";
   import ArrowIcon from "../img/arrow.svg";
 
   // Canvas state
@@ -42,6 +43,42 @@
     height = canvas.height;
   });
 
+  // #region Loading Assets
+
+  // Images are weird because I need to use async loading for them
+  let arrowImage: HTMLImageElement | null = $state(null);
+
+  async function loadImage(name: string, src: string): Promise<HTMLImageElement>
+  {
+    return new Promise((resolve, reject) =>
+    {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve(img);
+      img.onerror = (err) => reject(err);
+    });
+  }
+
+  async function loadImages()
+  {
+    try
+    {
+      arrowImage = await loadImage("arrow", ArrowIcon);
+    }
+    catch (err)
+    {
+      console.error(`Failed to load images: ${err}`);
+    }
+  }
+  
+  $effect(() =>
+  {
+    // Don't ever want to re run this code, should only load once
+    untrack(loadImages);
+  });
+
+  // #endregion
+
   // #region Rendering
 
   function drawAxes(c: CanvasRenderingContext2D)
@@ -58,18 +95,27 @@
     c.lineTo(origin.x, height - linePadding);
     c.stroke();
 
-    // TODO: arrow heads on the axes
-    const arrowSize = 30;
-    let image = new Image();
-    image.src = ArrowIcon;
-    image.onload = () => {
-      // X axis arrow
-      c.drawImage(image, width - linePadding, origin.y, arrowSize, arrowSize);
+    // Arrow heads
+    if (arrowImage !== null)
+    {
+      const arrowSize = 30;
 
-      // Y axis arrow
-      c.drawImage(image, origin.x - arrowSize / 2, linePadding, arrowSize, arrowSize);
-    };
-    //ctx.drawImage(ArrowIcon, 0, 0);
+      // +X axis
+      c.resetTransform();
+      c.translate(width - linePadding + arrowSize / 2, origin.y - arrowSize / 2);
+      c.rotate(Math.PI / 2);
+      c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
+
+      // +Y axis
+      c.resetTransform();
+      c.translate(origin.x - arrowSize / 2, linePadding - arrowSize / 2);
+      c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
+
+      // TODO: arrows on the negative axes and when the origin is out of sight, only show one pair
+    }
+
+    // X and Y axis labels
+    // TODO
   }
 
   function drawGrid(c: CanvasRenderingContext2D)
@@ -80,6 +126,8 @@
 
   function drawFunctions(c: CanvasRenderingContext2D)
   {
+    c.resetTransform();
+
     functions.forEach(func => {
       const minX = fromCanvasCoords(0, 0).x;
       const maxX = fromCanvasCoords(canvas.width, 0).x;
@@ -122,6 +170,7 @@
     const c = ctx!;
 
     // Background
+    c.resetTransform();
     c.fillStyle = Colors.BackgroundColor;
     c.fillRect(0, 0, width, height);
 
