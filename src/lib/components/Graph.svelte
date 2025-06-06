@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte";
   import * as Colors from "../colors";
-  import type { Function } from "$lib/maths/function";
+  import type { Domain, Function } from "$lib/maths/function";
   import type { Point } from "$lib/maths/point";
   import ArrowIcon from "../img/arrow.svg";
 
@@ -128,6 +128,8 @@
     c.resetTransform();
     c.strokeStyle = Colors.LightColor;
     c.lineWidth = 3;
+    c.lineCap = "round";
+    c.lineJoin = "round";
     c.beginPath();
     c.moveTo(origin.x, origin.y);
     c.lineTo(endPoint.x, endPoint.y);
@@ -176,36 +178,66 @@
     c.resetTransform();
 
     functions.forEach(func => {
+      drawFunction(func, c);
+    });
+  }
+
+  function drawFunction(func: Function, c: CanvasRenderingContext2D)
+  {
+      // Find the left and right of the screen in cartesian coordinates
       const minX = fromCanvasCoords(0, 0).x;
       const maxX = fromCanvasCoords(canvas.width, 0).x;
-      // TODO: this should be dynamic and increase near discontinuities
-      const steps = 100; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
-      const step = (maxX - minX) / steps;
 
-      for (let x = minX; x <= maxX; x += step)
-      {
-        const y = func.func(x);
-        const coords = toCanvasCoords(x, y);
+      // Get the domain of the function with the default stretching both sides of the screen
+      let domains: Array<Domain> = [{ start: minX, end: maxX, includeStart: true, includeEnd: true }];
 
-        if (x === minX)
+      if (func.getDomain !== undefined)
+        domains = func.getDomain(minX, maxX);
+
+      // Draw each domain
+      domains.forEach(domain => {
+        // Find start and finish
+        let start = domain.start;
+        let end = domain.end;
+
+        // If the endpoints can't be included, add/subtract the smallest possible value to them
+        // TODO: make sure epsilon will work because floats are weird
+        if (!domain.includeStart)
+          start += Number.EPSILON;
+
+        if (!domain.includeEnd)
+          end -= Number.EPSILON;
+
+        // Calculate the step size
+        // TODO: this should be dynamic and increase when the gradient is steeper
+        const steps = 100; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
+        const stepSize = (end - start) / steps;
+
+        for (let x = start; x <= end; x += stepSize)
         {
+          // Get the coordinate of point on the function
+          const y = func.func(x);
+          const coords = toCanvasCoords(x, y);
+
           // Start the line
-          c.strokeStyle = func.color;
-          c.lineWidth = 5;
-          c.lineCap = "round";
-          c.lineJoin = "round";
-          c.beginPath();
-          c.moveTo(coords.x, coords.y);
-          continue;
+          if (x === start)
+          {
+            c.strokeStyle = func.color;
+            c.lineWidth = 5;
+            c.lineCap = "round";
+            c.lineJoin = "round";
+            c.beginPath();
+            c.moveTo(coords.x, coords.y);
+            continue;
+          }
+
+          // Continue drawing
+          c.lineTo(coords.x, coords.y);
         }
 
-        // Continue drawing
-        c.lineTo(coords.x, coords.y);
-      }
-
-      // Finish the line
-      c.stroke();
-    });
+        // Finish the line
+        c.stroke();
+      });
   }
 
   // Render whenever the graph data changes
@@ -228,8 +260,8 @@
 
   // #endregion
 
-  // TODO: ensure both of these work
-// TODO: maybe rework how these work since Idk how to apply rotation to imags and it might just be easier to use transforms for everything
+  // TODO: ensure both of these work - the y coord is flipped
+  // TODO: maybe rework how these work since Idk how to apply rotation to imags and it might just be easier to use transforms for everything
   // #region Cartesian coords to canvas coords
 
   function toCanvasCoords(x: number, y: number): Point

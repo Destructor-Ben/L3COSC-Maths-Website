@@ -1,5 +1,6 @@
 <script lang="ts">
   import Graph from "$lib/components/Graph.svelte";
+  import type { Domain, Function } from "$lib/maths/function";
   import * as Colors from "$lib/colors";
 </script>
 
@@ -8,11 +9,22 @@
   height={500}
   initialScale={{ x: 10, y: 10 }}
   functions={[
-    { name: "sin(x)", func: (x: number) => Math.sin(x), color: Colors.ContrastRed },
-    { name: "cos(x)", func: (x: number) => Math.cos(x), color: Colors.ContrastBlue },
-    { name: "tan(x)", func: (x: number) => Math.tan(x), color: Colors.ContrastGreen },
-    //{ name: "sec(x)", func: (x: number) => 1 / Math.cos(x), color: Colors.ContrastCyan },
-    //{ name: "csc(x)", func: (x: number) => 1 / Math.sin(x), color: Colors.ContrastMagenta },
-    //{ name: "cot(x)", func: (x: number) => 1 / Math.tan(x), color: Colors.ContrastYellow },
+    { name: "sin(x)", color: Colors.ContrastRed,   func: (x: number) => Math.sin(x) },
+    { name: "cos(x)", color: Colors.ContrastBlue,  func: (x: number) => Math.cos(x) },
+    { name: "tan(x)", color: Colors.ContrastGreen, func: (x: number) => Math.tan(x),
+      getDomain: (a: number, b: number) => {
+        const domains = [];
+
+        // TODO: proper implementation
+        domains.push({
+          start: -Math.PI / 2,
+          end: Math.PI / 2,
+          includeStart: false,
+          includeEnd: false,
+        });
+
+        return domains;
+      }
+    },
   ]}
 />
