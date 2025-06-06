@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { untrack } from "svelte";
   import * as Colors from "../colors";
   import type { Function } from "$lib/maths/function";
-  import { untrack } from "svelte";
+  import type { Point } from "$lib/maths/point";
   import ArrowIcon from "../img/arrow.svg";
 
   // Canvas state
@@ -13,8 +14,8 @@
   {
     width: number;
     height: number;
-    initialCameraPos?: { x: number; y: number };
-    initialScale?: { x: number; y: number };
+    initialCameraPos?: Point;
+    initialScale?: Point;
     functions?: Array<Function>;
   }
 
@@ -83,9 +84,13 @@
 
   function drawAxes(c: CanvasRenderingContext2D)
   {
-    const origin = toCanvasCoords(0, 0);
-    const linePadding = 15;
+    // Draw each arrow
+    drawAxis(1, 0, "x", c);
+    drawAxis(-1, 0, "-x", c);
+    drawAxis(0, 1, "y", c);
+    drawAxis(0, -1, "-y", c);
 
+    /*
     c.strokeStyle = Colors.LightColor;
     c.lineWidth = 2;
     c.beginPath();
@@ -98,8 +103,6 @@
     // Arrow heads
     if (arrowImage !== null)
     {
-      const arrowSize = 30;
-
       // +X axis
       c.resetTransform();
       c.translate(width - linePadding + arrowSize / 2, origin.y - arrowSize / 2);
@@ -107,8 +110,16 @@
       c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
 
       // +Y axis
+      let upArrowY = linePadding - arrowSize / 2;
+
+      // Ensure it doesn't get too close to the origin
+      if (origin.y - upArrowY < minDstFromOrigin)
+      {
+        console.log("Test");
+        upArrowY = origin.y - minDstFromOrigin;
+      }
       c.resetTransform();
-      c.translate(origin.x - arrowSize / 2, linePadding - arrowSize / 2);
+      c.translate(origin.x - arrowSize / 2, upArrowY);
       c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
 
       // -X axis
@@ -127,6 +138,81 @@
     }
 
     // X and Y axis labels
+    // TODO
+    //*/
+  }
+
+  function drawAxis(axisX: number, axisY: number, label: string, c: CanvasRenderingContext2D)
+  {
+    const origin = toCanvasCoords(0, 0); // Where the origin is on the screen
+    const linePadding = 15;
+    const arrowScale = 0.2;
+    const minDstFromOrigin = 50;
+
+    // Calculate the end point of the axis line
+    let endPoint = {
+      x: axisX === 0 ? origin.x : width * (axisX * 0.5 + 0.5),
+      y: axisY === 0 ? origin.y : height * (axisY * 0.5 + 0.5),
+    };
+
+    // Padding
+    if (axisY === 0)
+      endPoint.x -= linePadding * Math.sign(axisX);
+    
+    if (axisX === 0)
+      endPoint.y -= linePadding * Math.sign(axisY);
+
+    // Clamping the end point so it doesn't get close to the origin
+    if (axisY === -1 && origin.y - endPoint.y < minDstFromOrigin)
+      endPoint.y = origin.y - minDstFromOrigin;
+
+    if (axisY === 1 && origin.y - endPoint.y > -minDstFromOrigin)
+      endPoint.y = origin.y + minDstFromOrigin;
+
+    if (axisX === -1 && origin.x - endPoint.x < minDstFromOrigin)
+      endPoint.x = origin.x - minDstFromOrigin;
+
+    if (axisX === 1 && origin.x - endPoint.x > -minDstFromOrigin)
+      endPoint.x = origin.x + minDstFromOrigin;
+
+    // Draw the line
+    c.resetTransform();
+    c.strokeStyle = Colors.LightColor;
+    c.lineWidth = 3;
+    c.beginPath();
+    c.moveTo(origin.x, origin.y);
+    c.lineTo(endPoint.x, endPoint.y);
+    c.stroke();
+
+    // Draw the arrow head
+    if (arrowImage !== null)
+    {
+      const arrowSize = { x: arrowImage.width * arrowScale, y: arrowImage.height * arrowScale };
+
+      let rotation = 0;
+      let offsetSigns = { x: 1, y: 1, };
+
+      // Hardcoded ;-;
+      if (axisY === 1)
+      {
+        rotation = Math.PI;
+        offsetSigns.x = -1;
+        offsetSigns.y = -1;
+      }
+      else if (axisX != 0)
+      {
+        rotation = Math.PI / 2 * Math.sign(axisX);
+        offsetSigns.x = -Math.sign(axisX);
+        offsetSigns.y = axisX == -1 ? -1 : 1;
+      }
+
+      c.resetTransform();
+      c.translate(endPoint.x - arrowSize.x / 2 * offsetSigns.x, endPoint.y - arrowSize.y / 2 * offsetSigns.y);
+      c.rotate(rotation);
+      c.drawImage(arrowImage, 0, 0, arrowSize.x, arrowSize.y);
+    }
+
+    // Draw the label for the axis
     // TODO
   }
 
@@ -197,7 +283,7 @@
 // TODO: maybe rework how these work since Idk how to apply rotation to imags and it might just be easier to use transforms for everything
   // #region Cartesian coords to canvas coords
 
-  function toCanvasCoords(x: number, y: number): { x: number, y: number }
+  function toCanvasCoords(x: number, y: number): Point
   {
     return {
       x: (x + cameraPos.x) * width / scale.x + width / 2,
@@ -205,7 +291,7 @@
     };
   }
 
-  function fromCanvasCoords(x: number, y: number): { x: number, y: number }
+  function fromCanvasCoords(x: number, y: number): Point
   {
     return {
       x: (x - width / 2) / width * scale.x - cameraPos.x,
