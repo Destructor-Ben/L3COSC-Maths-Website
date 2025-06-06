@@ -84,62 +84,11 @@
 
   function drawAxes(c: CanvasRenderingContext2D)
   {
-    // Draw each arrow
+    // Draw each axis
     drawAxis(1, 0, "x", c);
     drawAxis(-1, 0, "-x", c);
     drawAxis(0, 1, "y", c);
     drawAxis(0, -1, "-y", c);
-
-    /*
-    c.strokeStyle = Colors.LightColor;
-    c.lineWidth = 2;
-    c.beginPath();
-    c.moveTo(linePadding, origin.y);
-    c.lineTo(width - linePadding, origin.y);
-    c.moveTo(origin.x, linePadding);
-    c.lineTo(origin.x, height - linePadding);
-    c.stroke();
-
-    // Arrow heads
-    if (arrowImage !== null)
-    {
-      // +X axis
-      c.resetTransform();
-      c.translate(width - linePadding + arrowSize / 2, origin.y - arrowSize / 2);
-      c.rotate(Math.PI / 2);
-      c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
-
-      // +Y axis
-      let upArrowY = linePadding - arrowSize / 2;
-
-      // Ensure it doesn't get too close to the origin
-      if (origin.y - upArrowY < minDstFromOrigin)
-      {
-        console.log("Test");
-        upArrowY = origin.y - minDstFromOrigin;
-      }
-      c.resetTransform();
-      c.translate(origin.x - arrowSize / 2, upArrowY);
-      c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
-
-      // -X axis
-      c.resetTransform();
-      c.translate(linePadding - arrowSize / 2, origin.y + arrowSize / 2);
-      c.rotate(-Math.PI / 2);
-      c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
-
-      // -Y axis
-      c.resetTransform();
-      c.translate(origin.x + arrowSize / 2, height - linePadding + arrowSize / 2);
-      c.rotate(Math.PI);
-      c.drawImage(arrowImage, 0, 0, arrowSize, arrowSize);
-
-      // TODO: when the origin is out of sight, only show one pair of arrows (clamp positions)
-    }
-
-    // X and Y axis labels
-    // TODO
-    //*/
   }
 
   function drawAxis(axisX: number, axisY: number, label: string, c: CanvasRenderingContext2D)
