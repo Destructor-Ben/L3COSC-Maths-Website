@@ -15,7 +15,8 @@
       getDomain: (a: number, b: number) => {
         const domains = [];
 
-        // This seems ti still have issues but it mostly works
+        // This seems to still have issues but it mostly works
+        // TODO: investigate if the issues are with this function or the rendering
         const minValue = Math.ceil(a / Math.PI);
         const maxValue = Math.floor(b / Math.PI);
 
