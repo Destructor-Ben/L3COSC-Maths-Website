@@ -260,8 +260,7 @@
 
   // #endregion
 
-  // TODO: ensure both of these work - the y coord is flipped
-  // TODO: maybe rework how these work since Idk how to apply rotation to imags and it might just be easier to use transforms for everything
+  // TODO: rewrite these and stop the y axis getting flipped
   // #region Cartesian coords to canvas coords
 
   function toCanvasCoords(x: number, y: number): Point
