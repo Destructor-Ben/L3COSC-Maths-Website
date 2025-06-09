@@ -15,13 +15,21 @@
       getDomain: (a: number, b: number) => {
         const domains = [];
 
-        // TODO: proper implementation
-        domains.push({
-          start: -Math.PI / 2,
-          end: Math.PI / 2,
-          includeStart: false,
-          includeEnd: false,
-        });
+        // This seems ti still have issues but it mostly works
+        const minValue = Math.ceil(a / Math.PI);
+        const maxValue = Math.floor(b / Math.PI);
+
+        for (let i = minValue; i <= maxValue; i++) {
+          const start = i * Math.PI - Math.PI / 2;
+          const end = i * Math.PI + Math.PI / 2;
+
+          domains.push({
+            start: start,
+            end: end,
+            includeStart: false,
+            includeEnd: false,
+          });
+        }
 
         return domains;
       }
