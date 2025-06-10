@@ -9,6 +9,7 @@
   height={500}
   initialScale={{ x: 10, y: 10 }}
   functions={[
+    // TODO: use the ones stored in global variables
     { name: "sin(x)", color: Colors.ContrastRed,   func: (x: number) => Math.sin(x) },
     { name: "cos(x)", color: Colors.ContrastBlue,  func: (x: number) => Math.cos(x) },
     { name: "tan(x)", color: Colors.ContrastGreen, func: (x: number) => Math.tan(x),

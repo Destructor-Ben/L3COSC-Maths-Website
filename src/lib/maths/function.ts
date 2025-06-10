@@ -7,11 +7,19 @@ export type Domain =
   includeEnd: boolean;
 };
 
+// TODO: rename the 2 below:
+// - Func -> Function
+// - Function -> DisplayFunction
+
+// Mathematical function
+export type Func = (x: number) => number;
+
+// Display function
 export type Function = 
 {
   name: string;
   color: string;
-  func: (x: number) => number;
+  func: Func;
   // Gets all of the valid domains for the function in [a,b]
   getDomain?: (a: number, b: number) => Domain[];
 };
