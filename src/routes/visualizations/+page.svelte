@@ -4,6 +4,8 @@
   import * as Colors from "$lib/colors";
 </script>
 
+<a href="/visualizations/taylor-series">Taylor Series</a>
+
 <Graph
   width={700}
   height={500}

@@ -5,10 +5,6 @@
   import * as Functions from "$lib/maths/functions";
 	import { taylor } from "$lib/maths/taylor";
 
-  let currentFunction = $state("sin");
-  let a = $state(0);
-  let iterations = $state(1);
-
   const functions: Record<string, Function> = {
     sin: Functions.Sin,
     cos: Functions.Cos,
@@ -16,42 +12,29 @@
     exp: Functions.Exp,
   }
 
-  // TODO: make this a GetDerivative function since sin and cosine have repeating derivatives
-  const derivatives: Record<string, Array<Func>> = {
-    sin: [
-      Functions.Sin.func,
-      Functions.Cos.func,
-      (x: number) => -Functions.Sin.func(x),
-      (x: number) => -Functions.Cos.func(x),
-    ],
-    cos: [
-      Functions.Cos.func,
-      (x: number) => -Functions.Sin.func(x),
-      (x: number) => -Functions.Cos.func(x),
-      Functions.Sin.func,
-    ],
-    tan: [
-      Functions.Tan.func,
-    ],
-    exp: [
-      Functions.Exp.func,
-    ],
-  }
+  let currentFunctionName = $state("sin");
+  let currentFunction = $derived(functions[currentFunctionName]);
+  let a = $state(0); // Point the series is calculated around
+  let iterations = $state(1);
 
   function getFunction(): Function
   {
-    const func = functions[currentFunction];
-    func.name = "f(x)";
-    func.color = Colors.ContrastRed;
-    return func;
+    // TODO: customise the function - might need to clone it so we don't modify the original
+    //currentFunction.name = "f(x)";
+    //currentFunction.color = Colors.ContrastRed;
+    return currentFunction;
   }
 
   function getTaylorFunction(): Function
   {
+    const derivatives = currentFunction.getDerivative;
+    if (derivatives === undefined)
+      return Functions.Empty;
+
     return {
       name: "taylor(x)",
       color: Colors.ContrastBlue,
-      func: (x: number) => taylor(x, a, iterations, derivatives[currentFunction]),
+      func: (x: number) => taylor(x, a, iterations, derivatives)
     };
   }
 </script>
@@ -60,15 +43,21 @@
 
 <p>TODO: mathematical explanation</p>
 
-<select name="test" id="test" bind:value={currentFunction}>
+<select name="test" id="test" bind:value={currentFunctionName}>
   <option value="sin">sin(x)</option>
   <option value="cos">cos(x)</option>
   <option value="tan">tan(x)</option>
   <option value="exp">e^x</option>
 </select>
+<br />
 
-<input type="range" name="test1" id="test1" bind:value={iterations} min={0} max={derivatives[currentFunction].length}/>
-<input type="range" name="test2" id="test2" bind:value={a} min={-10} max={10} />
+<p>Iterations - [0, 15]</p>
+<input type="range" name="test1" id="test1" bind:value={iterations} min={0} max={15}/>
+<br />
+
+<p>A (point the series is calculated around) - [-10, 10]</p>
+<input type="range" name="test2" id="test2" bind:value={a} min={-10} max={10} step={0.01} />
+<br />
 
 <Graph
   width={700}

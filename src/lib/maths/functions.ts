@@ -1,9 +1,34 @@
-import type { Domain, Function } from "./function";
+import type { Domain, Function, Func } from "./function";
 import * as Colors from "../colors";
 
 // Contains a list of functions that can be reused
 
-export const Sin = { name: "sin(x)", color: Colors.ContrastRed,   func: (x: number) => Math.sin(x) };
+export const Empty = {
+  name: "empty",
+  color: Colors.LightColor,
+  func: (x: number) => 0,
+}
+
+export const Sin = {
+  name: "sin(x)",
+  color: Colors.ContrastRed,
+  func: (x: number) => Math.sin(x),
+  getDerivative: (n: number): Func => {
+    switch (n % 4) {
+      case 0:
+        return (x: number) => Math.sin(x);
+      case 1:
+        return (x: number) => Math.cos(x);
+      case 2:
+        return (x: number) => -Math.sin(x);
+      case 3:
+        return (x: number) => -Math.cos(x);
+    }
+
+    return Empty.func; // This should never happen
+  }
+};
+
 export const Cos = { name: "cos(x)", color: Colors.ContrastBlue,  func: (x: number) => Math.cos(x) };
 export const Tan = {
   name: "tan(x)",

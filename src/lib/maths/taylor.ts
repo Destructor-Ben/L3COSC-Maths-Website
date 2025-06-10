@@ -7,11 +7,11 @@ export function factorial(n: number): number {
   return n * factorial(n - 1);
 }
 
-export function taylor(x: number, a: number, iterations: number, functions: Func[]): number {
+export function taylor(x: number, a: number, iterations: number, getDerivative: (n: number) => Function): number {
   let sum = 0;
 
   for (let n = 0; n <= iterations; n++) {
-    sum += functions[n](a) / factorial(n) * Math.pow(x - a, n);
+    sum += getDerivative(n)(a) / factorial(n) * Math.pow(x - a, n);
   }
 
   return sum;

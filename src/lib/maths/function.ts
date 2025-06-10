@@ -22,4 +22,6 @@ export type Function =
   func: Func;
   // Gets all of the valid domains for the function in [a,b]
   getDomain?: (a: number, b: number) => Domain[];
+  // Gets the nth derivative
+  getDerivative?: (n: number) => Func;
 };
