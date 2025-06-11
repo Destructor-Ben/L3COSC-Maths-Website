@@ -35,7 +35,7 @@ export function getSinDerivative(n: number) {
 }
 
 export function getCosDerivative(n: number) {
-  return getSinDerivative(n + 2);
+  return getSinDerivative(n + 1);
 }
 
 export function getTanDomains(a: number, b: number) {
