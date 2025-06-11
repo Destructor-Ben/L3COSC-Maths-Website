@@ -10,7 +10,6 @@
 <Graph
   width={700}
   height={500}
-  initialScale={{ x: 10, y: 10 }}
   functions={[
     { name: "sin(x)", color: Colors.ContrastRed, func: Functions.Sin },
     { name: "cos(x)", color: Colors.ContrastBlue, func: Functions.Cos },

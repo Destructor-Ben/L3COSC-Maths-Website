@@ -23,7 +23,7 @@
     width, 
     height,
     initialCameraPos = { x: 0, y: 0 },
-    initialScale = { x: 1, y: 1 },
+    initialScale = { x: 10, y: 10 },
     functions = [],
   }: Props = $props();
 
