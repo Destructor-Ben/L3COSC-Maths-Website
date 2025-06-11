@@ -19,6 +19,7 @@ export const Cos = (x: number) => Math.cos(x);
 export const Tan = (x: number) => Math.tan(x);
 export const Exp = (x: number) => Math.exp(x);
 
+// Keep in mind the 0th derivative is the function itself
 export function getSinDerivative(n: number) {
   switch (n % 4) {
     case 0:
@@ -36,6 +37,31 @@ export function getSinDerivative(n: number) {
 
 export function getCosDerivative(n: number) {
   return getSinDerivative(n + 1);
+}
+
+function secSqr(x: number) {
+  return 1 / Math.cos(x) / Math.cos(x);
+}
+
+// TODO: finish implementing
+export function getTanDerivative(n: number) {
+  // Tan doesn't have easy to calculate derivatives so its hardcoded
+  if (n === 0)
+    return Tan;
+  if (n === 1)
+    return (x: number) => secSqr(x)
+  else if (n === 2)
+    return (x: number) => 2 * Math.tan(x) * secSqr(x);
+  else if (n === 3)
+    return (x: number) => 2 * Math.tan(x) * (1 + Math.pow(Math.tan(x), 2)) * secSqr(x);
+  else if (n === 4)
+    return (x: number) => 2 * Math.tan(x) * (1 + 3 * Math.pow(Math.tan(x), 2)) * secSqr(x);
+
+  return Empty;
+}
+
+export function getExpDerivative(n: number) {
+  return Exp;
 }
 
 export function getTanDomains(a: number, b: number) {

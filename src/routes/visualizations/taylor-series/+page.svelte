@@ -30,6 +30,10 @@
         return Functions.getSinDerivative;
       case "cos":
         return Functions.getCosDerivative;
+      case "tan":
+        return Functions.getTanDerivative;
+      case "exp":
+        return Functions.getExpDerivative;
       default:
         return Functions.getEmptyDerivative;
     }
