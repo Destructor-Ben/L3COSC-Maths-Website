@@ -1,9 +1,11 @@
 <script lang="ts">
 	import Graph from "$lib/components/Graph.svelte";
 	import * as Colors from "$lib/colors";
-  import type { Func, Function } from "$lib/maths/function";
+  import type { Function, DisplayFunction } from "$lib/maths/function";
   import * as Functions from "$lib/maths/functions";
 	import { taylor } from "$lib/maths/taylor";
+
+  // #region Functions
 
   const functions: Record<string, Function> = {
     sin: Functions.Sin,
@@ -12,29 +14,55 @@
     exp: Functions.Exp,
   }
 
+  function getFunctionDomains() {
+    switch (currentFunctionName) {
+      case "tan":
+        return Functions.getTanDomains;
+      default:
+        return undefined;
+    }
+  }
+
+  function getFunctionDerivative() : (n: number) => Function
+  {
+    switch (currentFunctionName) {
+      case "sin":
+        return Functions.getSinDerivative;
+      case "cos":
+        return Functions.getCosDerivative;
+      default:
+        return Functions.getEmptyDerivative;
+    }
+  }
+
+  // #endregion
+
   let currentFunctionName = $state("sin");
   let currentFunction = $derived(functions[currentFunctionName]);
+
   let a = $state(0); // Point the series is calculated around
   let iterations = $state(1);
 
-  function getFunction(): Function
+  function getFunction(): DisplayFunction
   {
-    // TODO: customise the function - might need to clone it so we don't modify the original
-    //currentFunction.name = "f(x)";
-    //currentFunction.color = Colors.ContrastRed;
-    return currentFunction;
+    return {
+      name: "f(x)",
+      color: Colors.ContrastRed,
+      func: currentFunction,
+      getDomains: getFunctionDomains(),
+    };
   }
 
-  function getTaylorFunction(): Function
+  function getTaylorFunction(): DisplayFunction
   {
-    const derivatives = currentFunction.getDerivative;
+    const derivatives = currentFunction;
     if (derivatives === undefined)
-      return Functions.Empty;
+      return Functions.EmptyDisplayFunction;
 
     return {
       name: "taylor(x)",
       color: Colors.ContrastBlue,
-      func: (x: number) => taylor(x, a, iterations, derivatives)
+      func: (x: number) => taylor(x, a, iterations, getFunctionDerivative())
     };
   }
 </script>
@@ -51,11 +79,11 @@
 </select>
 <br />
 
-<p>Iterations - [0, 15]</p>
+<p>Iterations = {iterations} - [0, 15]</p>
 <input type="range" name="test1" id="test1" bind:value={iterations} min={0} max={15}/>
 <br />
 
-<p>A (point the series is calculated around) - [-10, 10]</p>
+<p>a = {a} (point the series is calculated around) - [-10, 10]</p>
 <input type="range" name="test2" id="test2" bind:value={a} min={-10} max={10} step={0.01} />
 <br />
 

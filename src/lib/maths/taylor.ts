@@ -1,4 +1,4 @@
-import type { Func } from "./function";
+import type { Function } from "./function";
 
 export function factorial(n: number): number {
   if (n <= 1)

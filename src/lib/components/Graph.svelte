@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from "svelte";
   import * as Colors from "../colors";
-  import type { Domain, Function } from "$lib/maths/function";
+  import type { Domain, DisplayFunction } from "$lib/maths/function";
   import type { Point } from "$lib/maths/point";
   import ArrowIcon from "../img/arrow.svg";
 
@@ -16,7 +16,7 @@
     height: number;
     initialCameraPos?: Point;
     initialScale?: Point;
-    functions?: Array<Function>;
+    functions?: Array<DisplayFunction>;
   }
 
   let {
@@ -182,7 +182,7 @@
     });
   }
 
-  function drawFunction(func: Function, c: CanvasRenderingContext2D)
+  function drawFunction(func: DisplayFunction, c: CanvasRenderingContext2D)
   {
       // Find the left and right of the screen in cartesian coordinates
       const minX = fromCanvasCoords(0, 0).x;
@@ -191,8 +191,8 @@
       // Get the domain of the function with the default stretching both sides of the screen
       let domains: Array<Domain> = [{ start: minX, end: maxX, includeStart: true, includeEnd: true }];
 
-      if (func.getDomain !== undefined)
-        domains = func.getDomain(minX, maxX);
+      if (func.getDomains !== undefined)
+        domains = func.getDomains(minX, maxX);
 
       // Draw each domain
       domains.forEach(domain => {
