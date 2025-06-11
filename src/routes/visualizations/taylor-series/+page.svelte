@@ -59,10 +59,6 @@
 
   function getTaylorFunction(): DisplayFunction
   {
-    const derivatives = currentFunction;
-    if (derivatives === undefined)
-      return Functions.EmptyDisplayFunction;
-
     return {
       name: "taylor(x)",
       color: Colors.ContrastBlue,
