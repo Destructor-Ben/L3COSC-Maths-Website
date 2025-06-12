@@ -201,16 +201,16 @@
         let end = domain.end;
 
         // If the endpoints can't be included, add/subtract the smallest possible value to them
-        // TODO: make sure epsilon will work because floats are weird
+        const epsilon = Number.EPSILON * 1000;
         if (!domain.includeStart)
-          start += Number.EPSILON;
+          start += epsilon;
 
         if (!domain.includeEnd)
-          end -= Number.EPSILON;
+          end -= epsilon;
 
         // Calculate the step size
         // TODO: this should be dynamic and increase when the gradient is steeper
-        const steps = 100; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
+        const steps = 300; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
         const stepSize = (end - start) / steps;
 
         for (let x = start; x <= end; x += stepSize)
