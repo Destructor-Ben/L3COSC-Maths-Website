@@ -88,6 +88,7 @@
 <br />
 
 <Graph
+  id="taylor-series-graph"
   width={700}
   height={500}
   functions={[

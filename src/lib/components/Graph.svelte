@@ -12,19 +12,23 @@
   // Props
   interface Props
   {
+    id: string;
     width: number;
     height: number;
     initialCameraPos?: Point;
     initialScale?: Point;
     functions?: Array<DisplayFunction>;
+    allowsUserInput?: boolean;
   }
 
   let {
+    id,
     width, 
     height,
     initialCameraPos = { x: 0, y: 0 },
     initialScale = { x: 10, y: 10 },
     functions = [],
+    allowsUserInput = true,
   }: Props = $props();
 
   // Camera
@@ -34,7 +38,7 @@
   // Set up canvas
   $effect(() =>
   {
-    canvas = document.getElementById('canvas') as HTMLCanvasElement;
+    canvas = document.getElementById(id) as HTMLCanvasElement;
     const context = canvas.getContext("2d");
     if (!context)
       throw new Error("2D canvas not available");
@@ -285,6 +289,9 @@
 
   function handleMouseMove(event: MouseEvent)
   {
+    if (!allowsUserInput)
+      return;
+
     // Check if the left mouse button is pressed
     if (!(event.buttons & 1))
       return;
@@ -298,6 +305,9 @@
 
   function handleMouseWheel(event: WheelEvent)
   {
+    if (!allowsUserInput)
+      return;
+
     event.preventDefault();
     const delta = event.deltaY > 0 ? 1.1 : 0.9;
     scale.x *= delta;
@@ -309,7 +319,7 @@
 
 <div class="graph">
   <canvas
-    id="canvas"
+    id={id}
     width={width}
     height={height}
     onmousemove={handleMouseMove}
