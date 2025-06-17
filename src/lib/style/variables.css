@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+
+:root {
+  /* Fonts TODO */
+  --font: -apple-system, BlinkMacSystemFont, "Poppins", sans-serif;
+  --font-heading: "Consolas", monospace;
+
+  /* Colours TODO */
+  --col-text: #f1f1f1;
+  --col-heading: white;
+  --col-bg: #0a0a16;
+  --col-fg: #0f1931;
+  --col-mg: color-mix(in srgb, var(--col-fg) 30%, var(--col-bg));
+  --col-highlight: color-mix(in srgb, var(--col-fg) 90%, #fff);
+
+  /* Miscellaneous */
+  --transition-duration: 300ms;
+  --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --border: 2px solid var(--col-highlight);
+}

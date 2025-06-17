@@ -1,4 +1,6 @@
 <script lang="ts">
+  import "$lib/style/variables.css";
+  import "$lib/style/style.css";
   import type { Snippet } from "svelte";
 
   let { children }: { children: Snippet } = $props();
@@ -45,5 +47,9 @@
     justify-content: space-between;
     padding: 1rem;
     background-color: red;
+
+    a {
+      /* TODO */
+    }
   }
 </style>
