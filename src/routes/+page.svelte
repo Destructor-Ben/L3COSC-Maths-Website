@@ -28,9 +28,13 @@
 <button class="button">Test</button>
 </div>
 
-<Math>ax^2 + bx + c</Math>
-<Math>Θ ϴ θ ϑ</Math>
-<Math>{"i\\sin{θ}"}</Math>
+<div>
+  <Math>ax^2 + bx + c</Math>
+  <br/>
+  <Math>Θ ϴ θ ϑ</Math>
+  <br/>
+  <Math>{"i\\sin{θ}"}</Math>
+</div>
 
 <p>
   Uppercase:
