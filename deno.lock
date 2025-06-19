@@ -14,6 +14,7 @@
     "npm:prettier-plugin-svelte@^3.3.3": "3.4.0_prettier@3.5.3_svelte@5.33.2__acorn@8.14.1",
     "npm:prettier@^3.4.2": "3.5.3",
     "npm:svelte-check@4": "4.2.1_svelte@5.33.2__acorn@8.14.1_typescript@5.8.3",
+    "npm:svelte-math@^0.0.2": "0.0.2_svelte@5.33.2__acorn@8.14.1",
     "npm:svelte@5": "5.33.2_acorn@8.14.1",
     "npm:typescript-eslint@^8.20.0": "8.32.1_eslint@9.27.0_typescript@5.8.3_@typescript-eslint+parser@8.32.1__eslint@9.27.0__typescript@5.8.3",
     "npm:typescript@5": "5.8.3",
@@ -1238,6 +1239,13 @@
         "svelte"
       ]
     },
+    "svelte-math@0.0.2_svelte@5.33.2__acorn@8.14.1": {
+      "integrity": "sha512-GTxoo6glQtIqRq9MRdWarxZ0NM7DegI1ZVQ2eJu4xFtHcZKTY/KNIntE4KQui4y1hmBAVZ+wm7FdoOxiWsefCA==",
+      "dependencies": [
+        "svelte",
+        "temml"
+      ]
+    },
     "svelte@5.33.2_acorn@8.14.1": {
       "integrity": "sha512-uiyusx2rUa9NmVMaIcShnZyDhOfFXxgkn5eXOcgjDBL3RYQGR1+7TctPcI6AWNbu4gHWF5xZ/TlFM7nnw5H+JQ==",
       "dependencies": [
@@ -1256,6 +1264,9 @@
         "magic-string",
         "zimmerframe"
       ]
+    },
+    "temml@0.11.8": {
+      "integrity": "sha512-S6xz3rYPfRJmyxmDBYtLelwrsNeHjLeo8px7vbdOiPp6X5D1R3ZsiY/UYsxjrbNsZ2YoQxvDhoFw0nBiy5SpuQ=="
     },
     "tinyglobby@0.2.14_picomatch@4.0.2": {
       "integrity": "sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==",
@@ -1368,6 +1379,7 @@
         "npm:prettier-plugin-svelte@^3.3.3",
         "npm:prettier@^3.4.2",
         "npm:svelte-check@4",
+        "npm:svelte-math@^0.0.2",
         "npm:svelte@5",
         "npm:typescript-eslint@^8.20.0",
         "npm:typescript@5",

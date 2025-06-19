@@ -1,5 +1,6 @@
 <script>
 	import Graph from "$lib/components/Graph.svelte";
+  import { Math } from "svelte-math";
 
   let width = $state(0);
   let height = $state(0);
@@ -23,13 +24,32 @@
 
 <a href="/visualizations">See Visualizations</a>
 
-<!-- Background -->
+<div>
+<button class="button">Test</button>
+</div>
+
+<Math>ax^2 + bx + c</Math>
+<Math>Θ ϴ θ ϑ</Math>
+<Math>{"i\\sin{θ}"}</Math>
+
+<p>
+  Uppercase:
+  Θ
+  ϴ
+  <br/>
+  Lowercase:
+  θ
+  ϑ
+  <br />
+</p>
+
+<!-- Background 
 <Graph
   width={width}
   height={height}
   allowsUserInput={false}
   id="background-graph"
-/>
+/>-->
 
 <style>
   :global(#background-graph) {
