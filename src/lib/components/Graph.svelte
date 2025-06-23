@@ -130,7 +130,7 @@
 
     // Draw the line
     c.resetTransform();
-    c.strokeStyle = Colors.LightColor;
+    c.strokeStyle = Colors.TextColor;
     c.lineWidth = 3;
     c.lineCap = "round";
     c.lineJoin = "round";

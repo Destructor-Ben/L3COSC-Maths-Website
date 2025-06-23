@@ -6,7 +6,7 @@ import * as Colors from "../colors";
 export const Empty = (x: number) => 0;
 export const EmptyDisplayFunction: DisplayFunction = {
   name: "empty",
-  color: Colors.LightColor,
+  color: Colors.HighlightColor,
   func: Empty,
 };
 

@@ -1,18 +1,37 @@
 // All of the colours used for canvas rendering are here
 
-// TODO: light + dark mode
-// TODO: set these from css variables
-// - Use let to declare and run a function whenever the colour mode changes to update them
-// - can get them from a "computer style" - https://stackoverflow.com/questions/41725725/access-css-variable-from-javascript
-export const BackgroundColor = "#212129";
-export const MidgroundColor = "#343440";
-export const ForegroundColor = "#454552";
-export const LightColor = "#fefefe"; // Remember to update any SVGs using this
+export let TextColor = "";
+export let HeadingColor = "";
+export let BackgroundColor = "";
+export let MidgroundColor = "";
+export let ForegroundColor = "";
+export let HighlightColor = ""; // Remember to update any SVGs using this
+// TODO: SVGs use LightColor, avoid hardcoding it
 
-// TODO: redo these
-export const ContrastRed = "#ff0d21";
-export const ContrastGreen = "#1dff0d";
-export const ContrastBlue = "#0d76ff";
-export const ContrastCyan = "#0df7ff";
-export const ContrastMagenta = "#ff0d9e";
-export const ContrastYellow = "#fff30d";
+export let ContrastRed = "";
+export let ContrastGreen = "";
+export let ContrastBlue = "";
+export let ContrastCyan = "";
+export let ContrastMagenta = "";
+export let ContrastYellow = "";
+
+// Sets the JS variables to mirror the CSS variables
+// This could be called whenever the colour theme is changed but not really needed
+export function calculateColors()
+{
+  const styles = window.getComputedStyle(document.body);
+
+  TextColor = styles.getPropertyValue("--col-text");
+  HeadingColor = styles.getPropertyValue("--col-heading");
+  BackgroundColor = styles.getPropertyValue("--col-bg");
+  MidgroundColor = styles.getPropertyValue("--col-mg");
+  ForegroundColor = styles.getPropertyValue("--col-fg");
+  HighlightColor = styles.getPropertyValue("--col-highlight");
+
+  ContrastRed = styles.getPropertyValue("--col-red");
+  ContrastGreen = styles.getPropertyValue("--col-green");
+  ContrastBlue = styles.getPropertyValue("--col-blue");
+  ContrastCyan = styles.getPropertyValue("--col-cyan");
+  ContrastMagenta = styles.getPropertyValue("--col-magenta");
+  ContrastYellow = styles.getPropertyValue("--col-yellow");
+}

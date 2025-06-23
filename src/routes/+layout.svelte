@@ -1,9 +1,13 @@
 <script lang="ts">
   import "$lib/style/variables.css";
   import "$lib/style/style.css";
-  import type { Snippet } from "svelte";
+  import * as Colors from "$lib/colors";
+  import { type Snippet } from "svelte";
 
   let { children }: { children: Snippet } = $props();
+
+  // Update JS colours to match CSS
+  $effect(Colors.calculateColors);
 </script>
 
 <div id="root">
