@@ -5,8 +5,7 @@ export let HeadingColor = "";
 export let BackgroundColor = "";
 export let MidgroundColor = "";
 export let ForegroundColor = "";
-export let HighlightColor = ""; // Remember to update any SVGs using this
-// TODO: SVGs use LightColor, avoid hardcoding it
+export let HighlightColor = "";
 
 export let ContrastRed = "";
 export let ContrastGreen = "";
@@ -17,6 +16,9 @@ export let ContrastYellow = "";
 
 // Sets the JS variables to mirror the CSS variables
 // This could be called whenever the colour theme is changed but not really needed
+// TODO: 2 problems need fixing
+// - Graph needs to re-render when/block first render till colours are set
+// - Stuff like functions stored in a static file need to halt their creation till the colours are set
 export function calculateColors()
 {
   const styles = window.getComputedStyle(document.body);

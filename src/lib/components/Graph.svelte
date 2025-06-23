@@ -3,7 +3,6 @@
   import * as Colors from "../colors";
   import type { Domain, DisplayFunction } from "$lib/maths/function";
   import type { Point } from "$lib/maths/point";
-  import ArrowIcon from "../img/arrow.svg";
 
   // Canvas state
   let canvas: HTMLCanvasElement;
@@ -48,42 +47,6 @@
     height = canvas.height;
   });
 
-  // #region Loading Assets
-
-  // Images are weird because I need to use async loading for them
-  let arrowImage: HTMLImageElement | null = $state(null);
-
-  async function loadImage(name: string, src: string): Promise<HTMLImageElement>
-  {
-    return new Promise((resolve, reject) =>
-    {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => resolve(img);
-      img.onerror = (err) => reject(err);
-    });
-  }
-
-  async function loadImages()
-  {
-    try
-    {
-      arrowImage = await loadImage("arrow", ArrowIcon);
-    }
-    catch (err)
-    {
-      console.error(`Failed to load images: ${err}`);
-    }
-  }
-  
-  $effect(() =>
-  {
-    // Don't ever want to re run this code, should only load once
-    untrack(loadImages);
-  });
-
-  // #endregion
-
   // #region Rendering
 
   function drawAxes(c: CanvasRenderingContext2D)
@@ -99,7 +62,6 @@
   {
     const origin = toCanvasCoords(0, 0); // Where the origin is on the screen
     const linePadding = 15;
-    const arrowScale = 0.2;
     const minDstFromOrigin = 50;
 
     // Calculate the end point of the axis line
@@ -140,35 +102,43 @@
     c.stroke();
 
     // Draw the arrow head
-    if (arrowImage !== null)
-    {
-      const arrowSize = { x: arrowImage.width * arrowScale, y: arrowImage.height * arrowScale };
-
-      let rotation = 0;
-      let offsetSigns = { x: 1, y: 1, };
-
-      // Hardcoded ;-;
-      if (axisY === 1)
-      {
-        rotation = Math.PI;
-        offsetSigns.x = -1;
-        offsetSigns.y = -1;
-      }
-      else if (axisX != 0)
-      {
-        rotation = Math.PI / 2 * Math.sign(axisX);
-        offsetSigns.x = -Math.sign(axisX);
-        offsetSigns.y = axisX == -1 ? -1 : 1;
-      }
-
-      c.resetTransform();
-      c.translate(endPoint.x - arrowSize.x / 2 * offsetSigns.x, endPoint.y - arrowSize.y / 2 * offsetSigns.y);
-      c.rotate(rotation);
-      c.drawImage(arrowImage, 0, 0, arrowSize.x, arrowSize.y);
-    }
+    drawArrow(c, axisX, axisY, endPoint);
 
     // Draw the label for the axis
     // TODO
+  }
+
+  function drawArrow(c: CanvasRenderingContext2D, axisX: number, axisY: number, endPoint: Point)
+  {
+    const arrowPathSize = 512;
+    const arrowScale = 1 / 15;
+    const arrowPath = new Path2D("M414 321.94L274.22 158.82a24 24 0 00-36.44 0L98 321.94c-13.34 15.57-2.28 39.62 18.22 39.62h279.6c20.5 0 31.56-24.05 18.18-39.62z");
+
+    let rotation = 0;
+    let offsetSigns = { x: 1, y: 1, };
+
+    // Hardcoded ;-;
+    if (axisY === 1)
+    {
+      rotation = Math.PI;
+      offsetSigns.x = -1;
+      offsetSigns.y = -1;
+    }
+    else if (axisX != 0)
+    {
+      rotation = Math.PI / 2 * Math.sign(axisX);
+      offsetSigns.x = -Math.sign(axisX);
+      offsetSigns.y = axisX == -1 ? -1 : 1;
+    }
+
+    c.resetTransform();
+    c.translate(endPoint.x - arrowPathSize * arrowScale / 2 * offsetSigns.x, endPoint.y - arrowPathSize * arrowScale / 2 * offsetSigns.y);
+    c.rotate(rotation);
+    c.scale(arrowScale, arrowScale);
+
+    c.strokeStyle = "";
+    c.fillStyle = Colors.TextColor;
+    c.fill(arrowPath);
   }
 
   function drawGrid(c: CanvasRenderingContext2D)
