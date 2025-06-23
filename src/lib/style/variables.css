@@ -2,10 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
-  /* Fonts TODO */
+  /* Fonts */
   --font: "Open Sans", sans-serif;
   --font-heading: "Cascadia Code", monospace;
-  --font-math: "Math Font", serif;
 
   /* Colours TODO */
   --col-text: #f1f1f1;
@@ -14,6 +13,17 @@
   --col-fg: #272729;
   --col-mg: color-mix(in srgb, var(--col-fg) 30%, var(--col-bg));
   --col-highlight: color-mix(in srgb, var(--col-fg) 50%, white);
+
+  --col-red: #ff0d21;
+  --col-green: #1dff0d;
+  --col-blue: #0d76ff;
+  --col-cyan: #0df7ff;
+  --col-magenta: #ff0d9e;
+  --col-yellow: #fff30d;
+
+  --col-link: rgb(98, 193, 252);
+  --col-link-visited: #af64f5;
+  --col-link-selected: #ff0000;
 
   /* Miscellaneous */
   --transition-duration: 300ms;
@@ -31,5 +41,9 @@
     --col-fg: #e1e1e1;
     --col-mg: color-mix(in srgb, var(--col-fg) 30%, var(--col-bg));
     --col-highlight: color-mix(in srgb, var(--col-fg) 90%, #fff);
+
+    --col-link: #0000EE;
+    --col-link-visited: #551A8B;
+    --col-link-selected: #FF0000;
   }
 }

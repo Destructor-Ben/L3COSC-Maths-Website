@@ -1,4 +1,4 @@
-/* Default styles (doesn't apply to maths) TODO: maybe certain styles should apply to maths */
+/* Default styles (doesn't apply to maths) TODO: maybe certain styles should apply to maths - just make a dedicated maths style */
 :where(:not(math, math *)) {
   &, &:before, &:after {
     padding: 0;
@@ -50,36 +50,18 @@ hr {
   margin: 0.5em 0em;
 }
 
-/* TODO: customize links and buttons */
-a.link {
-  /* Ugly, but I can't make it work any other way :'( */
+/* Taken from https://html.spec.whatwg.org/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints */
+.link:link { color: var(--col-link); } /* Unvisited colour */
+.link:visited { color: var(--col-link-visited); } /* Visited colour */
+.link:link:active, .link:visited:active { color: var(--col-link-selected); } /* Selected colour */
+.link:link, .link:visited {
+  text-decoration: underline;
   cursor: pointer;
   transition-property: color;
-
-  color: var(--col-rainbow-4);
-
-  &:visited {
-    color: var(--col-rainbow-5);
-  }
-
-  &:hover {
-    color: color-mix(in hsl, var(--col-rainbow-4), white 15%);
-
-    &:visited {
-      color: color-mix(in hsl, var(--col-rainbow-5), white 15%);
-    }
-  }
-
-  &:active {
-    color: color-mix(in hsl, var(--col-rainbow-4), white 30%);
-
-    &:visited {
-      color: color-mix(in hsl, var(--col-rainbow-5), white 30%);
-    }
-  }
 }
 
-button.button, a.button {
+/* TODO: customize buttons */
+.button {
   background-color: var(--col-fg);
   padding: 0.6em 1em;
   border: var(--border);
@@ -120,4 +102,3 @@ body, html, :root {
   position: relative;
   scroll-padding: 100px;
 }
-*/

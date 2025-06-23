@@ -22,7 +22,8 @@
 <h1>TODO: name</h1>
 <h2>Maths: Visualized</h2>
 
-<a href="/visualizations">See Visualizations</a>
+<a class="link" href="/visualizations">See Visualizations</a>
+<a class="link" href="asdafhsd.com/asdas">See Visualizations</a>
 
 <div>
 <button class="button">Test</button>
@@ -36,24 +37,13 @@
   <Math>{"i\\sin{θ}"}</Math>
 </div>
 
-<p>
-  Uppercase:
-  Θ
-  ϴ
-  <br/>
-  Lowercase:
-  θ
-  ϑ
-  <br />
-</p>
-
-<!-- Background 
+<!-- Background -->
 <Graph
   width={width}
   height={height}
   allowsUserInput={false}
   id="background-graph"
-/>-->
+/>
 
 <style>
   :global(#background-graph) {
