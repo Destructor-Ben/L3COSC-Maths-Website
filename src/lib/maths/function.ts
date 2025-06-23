@@ -14,7 +14,7 @@ export type Function = (x: number) => number;
 export type DisplayFunction = 
 {
   name: string;
-  color: string;
+  color: () => string;
   func: Function;
   // Gets all of the valid domains for the function in [a,b]
   getDomains?: (a: number, b: number) => Domain[];

@@ -1,26 +1,20 @@
-import type { Domain, DisplayFunction, Function } from "./function";
-import * as Colors from "../colors";
+import type { Domain, Function } from "./function";
 
 // Contains a list of functions that can be reused
 
 export const Empty = (x: number) => 0;
-export const EmptyDisplayFunction: DisplayFunction = {
-  name: "empty",
-  color: Colors.HighlightColor,
-  func: Empty,
-};
 
 export function getEmptyDerivative(n: number) {
   return Empty;
 }
 
-export const Sin = (x: number) => Math.sin(x);
-export const Cos = (x: number) => Math.cos(x);
-export const Tan = (x: number) => Math.tan(x);
-export const Exp = (x: number) => Math.exp(x);
+export const Sin: Function = (x: number) => Math.sin(x);
+export const Cos: Function = (x: number) => Math.cos(x);
+export const Tan: Function = (x: number) => Math.tan(x);
+export const Exp: Function = (x: number) => Math.exp(x);
 
 // Keep in mind the 0th derivative is the function itself
-export function getSinDerivative(n: number) {
+export function getSinDerivative(n: number): Function {
   switch (n % 4) {
     case 0:
       return (x: number) => Math.sin(x);
@@ -35,7 +29,7 @@ export function getSinDerivative(n: number) {
   return Empty; // This should never happen
 }
 
-export function getCosDerivative(n: number) {
+export function getCosDerivative(n: number): Function {
   return getSinDerivative(n + 1);
 }
 
@@ -44,7 +38,7 @@ function secSqr(x: number) {
 }
 
 // TODO: finish implementing
-export function getTanDerivative(n: number) {
+export function getTanDerivative(n: number): Function {
   // Tan doesn't have easy to calculate derivatives so its hardcoded
   if (n === 0)
     return Tan;
@@ -60,11 +54,11 @@ export function getTanDerivative(n: number) {
   return Empty;
 }
 
-export function getExpDerivative(n: number) {
+export function getExpDerivative(n: number): Function {
   return Exp;
 }
 
-export function getTanDomains(a: number, b: number) {
+export function getTanDomains(a: number, b: number): Domain[] {
   const domains = [];
 
   // This seems to still have issues but it mostly works

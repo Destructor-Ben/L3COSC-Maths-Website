@@ -196,7 +196,7 @@
           // Start the line
           if (x === start)
           {
-            c.strokeStyle = func.color;
+            c.strokeStyle = func.color();
             c.lineWidth = 5;
             c.lineCap = "round";
             c.lineJoin = "round";

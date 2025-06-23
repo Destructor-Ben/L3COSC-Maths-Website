@@ -18,7 +18,6 @@ export let ContrastYellow = "";
 // This could be called whenever the colour theme is changed but not really needed
 // TODO: 2 problems need fixing
 // - Graph needs to re-render when/block first render till colours are set
-// - Stuff like functions stored in a static file need to halt their creation till the colours are set
 export function calculateColors()
 {
   const styles = window.getComputedStyle(document.body);
