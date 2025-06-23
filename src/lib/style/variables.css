@@ -6,12 +6,12 @@
   --font: "Open Sans", sans-serif;
   --font-heading: "Cascadia Code", monospace;
 
-  /* Colours TODO */
-  --col-text: #f1f1f1;
+  /* Colours */
+  --col-text: #fefefe;
   --col-heading: white;
-  --col-bg: #0a0a16;
-  --col-fg: #272729;
-  --col-mg: color-mix(in srgb, var(--col-fg) 30%, var(--col-bg));
+  --col-bg: #212129;
+  --col-mg: #343440;
+  --col-fg: #454552;
   --col-highlight: color-mix(in srgb, var(--col-fg) 50%, white);
 
   --col-red: #ff0d21;
@@ -21,15 +21,19 @@
   --col-magenta: #ff0d9e;
   --col-yellow: #fff30d;
 
-  --col-link: rgb(98, 193, 252);
+  --col-link: rgb(52, 177, 255);
   --col-link-visited: #af64f5;
   --col-link-selected: #ff0000;
 
+  /* Shadows */
+  --shadow-fg: rgba(0, 0, 0, 0.15) 0px 3px 6px;
+  --shadow-mg: rgba(0, 0, 0, 0.25) 0px 3px 8px;
+
   /* Miscellaneous */
-  --transition-duration: 300ms;
+  --transition-duration: 250ms;
   --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
 
-  --border: 2px solid var(--col-highlight);
+  --border: 3px solid var(--col-highlight);
 }
 
 /* Light mode TODO */
@@ -41,6 +45,13 @@
     --col-fg: #e1e1e1;
     --col-mg: color-mix(in srgb, var(--col-fg) 30%, var(--col-bg));
     --col-highlight: color-mix(in srgb, var(--col-fg) 90%, #fff);
+
+    --col-text: #fefefe;
+    --col-heading: white;
+    --col-bg: #212129;
+    --col-mg: #343440;
+    --col-fg: #454552;
+    --col-highlight: color-mix(in srgb, var(--col-fg) 50%, white);
 
     --col-link: #0000EE;
     --col-link-visited: #551A8B;

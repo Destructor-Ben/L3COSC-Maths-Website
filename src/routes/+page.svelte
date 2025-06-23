@@ -19,22 +19,10 @@
 
 <svelte:window onresize={handleWindowResize} />
 
-<h1>TODO: name</h1>
-<h2>Maths: Visualized</h2>
-
-<a class="link" href="/visualizations">See Visualizations</a>
-<a class="link" href="asdafhsd.com/asdas">See Visualizations</a>
-
-<div>
-<button class="button">Test</button>
-</div>
-
-<div>
-  <Math>ax^2 + bx + c</Math>
-  <br/>
-  <Math>Θ ϴ θ ϑ</Math>
-  <br/>
-  <Math>{"i\\sin{θ}"}</Math>
+<div class="mg title">
+  <h1>Name</h1>
+  <h2>Maths: Visualized</h2>
+  <hr />
 </div>
 
 <!-- Background -->
@@ -51,5 +39,14 @@
     top: 0;
     left: 0;
     z-index: -1;
+  }
+
+  .title {
+    padding: 3em;
+    align-self: center;
+
+    h1 {
+      font-size: 5rem;
+    }
   }
 </style>

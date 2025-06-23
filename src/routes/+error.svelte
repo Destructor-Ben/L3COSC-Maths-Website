@@ -3,11 +3,14 @@
 </script>
 
 <div class="error-root">
-  <div>
-    <h1>An Error Occurred</h1>
-    <h2>{page.status} - {page.error?.message}</h2>
+  <div class="mg">
+    <div>
+      <h1>An Error Occurred</h1>
+      <h2>{page.status} - {page.error?.message}</h2>
+    </div>
+    
+    <a href="/" class="button">Home</a>
   </div>
-  <a href="/" class="link">Home</a>
 </div>
 
 <style>
@@ -17,7 +20,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10rem;
+
+    .mg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20vh;
+      padding: 3em;
+    }
 
     h1 {
       font-size: 5rem;

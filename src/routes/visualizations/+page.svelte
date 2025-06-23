@@ -1,1 +1,1 @@
-<a href="/visualizations/taylor-series">Taylor Series</a>
+<a class="link" href="/visualizations/taylor-series">Taylor Series</a>

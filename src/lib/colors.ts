@@ -1,3 +1,5 @@
+// All of the colours used for canvas rendering are here
+
 // TODO: light + dark mode
 // TODO: set these from css variables
 // - Use let to declare and run a function whenever the colour mode changes to update them
