@@ -240,23 +240,62 @@
 
   // #endregion
 
-  // TODO: rewrite these and stop the y axis getting flipped
-  // #region Cartesian coords to canvas coords
+  // #region Coordinate Conversion
 
   function toCanvasCoords(x: number, y: number): Point
   {
-    return {
-      x: (x + cameraPos.x) * width / scale.x + width / 2,
-      y: (y + cameraPos.y) * height / scale.y + height / 2,
-    };
+    // This is the just the inverse of the operations in fromCanvasCoord
+
+    // Add camera position
+    x -= cameraPos.x;
+    y -= cameraPos.y;
+
+    // Scale with camera
+    x /= scale.x;
+    y /= scale.y;
+
+    // Invert y axis
+    y = 1 - y;
+
+    // Adjust for aspect ratios
+    x /= width / height;
+
+    // Move (0, 0) to the middle of the screen
+    x -= 0.5;
+    y -= 0.5;
+
+    // Remap (w, h) to (1, 1)
+    x *= width;
+    y *= height;
+
+    return { x, y };
   }
 
   function fromCanvasCoords(x: number, y: number): Point
   {
-    return {
-      x: (x - width / 2) / width * scale.x - cameraPos.x,
-      y: (x - height / 2) / height * scale.y - cameraPos.y,
-    };
+    // Remap (w, h) to (1, 1)
+    x /= width;
+    y /= height;
+
+    // Adjust for aspect ratios
+    x *= width / height;
+
+    // Invert y axis
+    y = 1 - y;
+
+    // Scale with camera
+    x *= scale.x;
+    y *= scale.y;
+
+    // Move (0, 0) to the middle of the screen
+    x += 0.5 * scale.x * width / height;
+    y += 0.5 * scale.y;
+
+    // Add camera position
+    x += cameraPos.x;
+    y += cameraPos.y;
+
+    return { x, y };
   }
 
   // #endregion
@@ -275,8 +314,8 @@
     // Move the camera
     // TODO: check if the signs of these are correct
     // TODO: the scaling for this is dodgy, leads to the mouse sliding around
-    cameraPos.x += event.movementX * scale.x / 500;
-    cameraPos.y += event.movementY * scale.y / 500;
+    cameraPos.x -= event.movementX * scale.x / 5000;
+    cameraPos.y += event.movementY * scale.y / 5000;
   }
 
   function handleMouseWheel(event: WheelEvent)
