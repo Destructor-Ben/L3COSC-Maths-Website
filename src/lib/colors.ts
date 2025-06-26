@@ -20,8 +20,6 @@ const colorsHaveLoaded = getColorsHaveLoaded();
 
 // Sets the JS variables to mirror the CSS variables
 // This could be called whenever the colour theme is changed but not really needed
-// TODO: 2 problems need fixing
-// - Graph needs to re-render when/block first render till colours are set
 export function calculateColors()
 {
   const styles = window.getComputedStyle(document.body);
