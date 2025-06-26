@@ -12,7 +12,7 @@
   --col-bg: #212129;
   --col-mg: #343440;
   --col-fg: #454552;
-  --col-highlight: color-mix(in srgb, var(--col-fg) 50%, white);
+  --col-highlight: color-mix(in srgb, var(--col-fg) 90%, white);
 
   --col-red: #ff0d21;
   --col-green: #1dff0d;

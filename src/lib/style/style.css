@@ -60,7 +60,7 @@ hr {
   border: 2px solid var(--col-highlight);
   border-radius: 1000rem;
   margin: 0.5em 0em;
-  box-shadow: var(--shadow-mg);
+  box-shadow: var(--shadow-fg);
 }
 
 /* Links */

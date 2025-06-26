@@ -18,9 +18,9 @@
     </div>
 
     <div class="links">
-      <a class="button" href="/">Home</a>
-      <a class="button" href="/visualizations">Visualizations</a>
-      <a class="button" href="/">Coming Soon</a>
+      <a href="/">Home</a>
+      <a href="/visualizations">Visualizations</a>
+      <a href="/">Coming Soon</a>
     </div>
   </header>
 
@@ -78,15 +78,30 @@
       margin-right: var(--button-padding);
     }
 
-    /* TODO: make the buttons cooler */
+    /* Heading buttons */
     a {
       height: var(--button-height);
-      padding: 0.75em;
-      border-radius: 2em;
+      padding: 0em 1em;
+      border-radius: 1em;
+
       font-size: 1.25rem;
+      text-decoration: none;
+      font-family: var(--font-heading);
 
       display: flex;
       align-items: center;
+
+      background-color: var(--col-fg);
+      border: var(--border);
+      border-color: none;
+      box-shadow: var(--shadow-fg);
+      transition-property: background-color, border-color, box-shadow;
+
+      &:hover {
+        background-color: var(--col-highlight);
+        box-shadow: var(--shadow-mg);
+        border-color: var(--col-highlight);
+      }
     }
   }
 
