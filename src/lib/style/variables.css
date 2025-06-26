@@ -12,7 +12,8 @@
   --col-bg: #212129;
   --col-mg: #343440;
   --col-fg: #454552;
-  --col-highlight: color-mix(in srgb, var(--col-fg) 90%, white);
+  --col-hover: color-mix(in srgb, var(--col-fg), white 10%);
+  --col-highlight: color-mix(in srgb, var(--col-fg), white 20%);
 
   --col-red: #ff0d21;
   --col-green: #1dff0d;
@@ -44,7 +45,8 @@
     --col-bg: #ffffff;
     --col-mg: #f9f9f9;
     --col-fg: #f1f1f1;
-    --col-highlight: color-mix(in srgb, var(--col-fg) 75%, black);
+    --col-hover: color-mix(in srgb, var(--col-fg), black 10%);
+    --col-highlight: color-mix(in srgb, var(--col-fg), black 20%);
 
     --col-link: #0000EE;
     --col-link-visited: #551A8B;

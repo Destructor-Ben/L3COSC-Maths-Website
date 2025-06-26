@@ -93,14 +93,16 @@
 
       background-color: var(--col-fg);
       border: var(--border);
-      border-color: none;
       box-shadow: var(--shadow-fg);
-      transition-property: background-color, border-color, box-shadow;
+      transition-property: background-color, box-shadow;
 
       &:hover {
-        background-color: var(--col-highlight);
+        background-color: var(--col-hover);
         box-shadow: var(--shadow-mg);
-        border-color: var(--col-highlight);
+      }
+
+      &:active {
+        background-color: var(--col-highlight);
       }
     }
   }

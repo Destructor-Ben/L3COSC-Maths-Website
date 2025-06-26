@@ -77,34 +77,23 @@ hr {
 /* Buttons (works for <a> and <button> elements) */
 .button {
   background-color: var(--col-fg);
-  padding: 0.4em 1em;
+  padding: 0.5em 1em;
   border: var(--border);
   box-shadow: var(--shadow-fg);
-  border-radius: 1000rem;
+  border-radius: 1em;
   transition-property: background-color;
   cursor: pointer;
 
   &, * {
-    font-size: 1.25rem;
     text-decoration: none;
-    font-family: var(--font-heading);
-    font-weight: bold;
   }
 
   &:hover {
-    background-color: color-mix(
-      in hsl,
-      var(--col-fg),
-      var(--col-highlight) 50%
-    );
+    background-color: var(--col-hover);
   }
 
   &:active {
-    background-color: color-mix(
-      in hsl,
-      var(--col-fg),
-      var(--col-highlight) 75%
-    );
+    background-color: var(--col-highlight);
   }
 }
 

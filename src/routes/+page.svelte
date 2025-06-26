@@ -23,6 +23,8 @@
   <h1>Name</h1>
   <h2>Maths: Visualized</h2>
   <hr />
+
+  <!-- TODO: Finish the main page-->
 </div>
 
 <!-- Background -->
