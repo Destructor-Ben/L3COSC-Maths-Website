@@ -1,5 +1,7 @@
 // All of the colours used for canvas rendering are here
 
+import { getColorsHaveLoaded } from "./global-state.svelte";
+
 export let TextColor = "";
 export let HeadingColor = "";
 export let BackgroundColor = "";
@@ -13,6 +15,8 @@ export let ContrastBlue = "";
 export let ContrastCyan = "";
 export let ContrastMagenta = "";
 export let ContrastYellow = "";
+
+const colorsHaveLoaded = getColorsHaveLoaded();
 
 // Sets the JS variables to mirror the CSS variables
 // This could be called whenever the colour theme is changed but not really needed
@@ -35,4 +39,6 @@ export function calculateColors()
   ContrastCyan = styles.getPropertyValue("--col-cyan");
   ContrastMagenta = styles.getPropertyValue("--col-magenta");
   ContrastYellow = styles.getPropertyValue("--col-yellow");
+
+  colorsHaveLoaded.value = true;
 }

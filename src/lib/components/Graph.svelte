@@ -3,6 +3,9 @@
   import * as Colors from "../colors";
   import type { Domain, DisplayFunction } from "$lib/maths/function";
   import type { Point } from "$lib/maths/point";
+	import { getColorsHaveLoaded } from "$lib/global-state.svelte";
+  
+  const colorsHaveLoaded = getColorsHaveLoaded();
 
   // Canvas state
   let canvas: HTMLCanvasElement;
@@ -217,6 +220,9 @@
   // Render whenever the graph data changes
   $effect(() =>
   {
+    if (!colorsHaveLoaded.value)
+      return;
+
     if (!ctx)
       return;
 
