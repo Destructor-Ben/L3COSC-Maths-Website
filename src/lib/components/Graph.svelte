@@ -29,13 +29,13 @@
     width, 
     height,
     initialCameraPos = { x: 0, y: 0 },
-    initialScale = { x: 10, y: 10 },
+    initialScale = { x: 1, y: 1 },
     functions = [],
     allowsUserInput = true,
   }: Props = $props();
 
   // Camera
-  let cameraPos = $state(initialCameraPos);
+  let cameraPos = $state(initialCameraPos); // In cartesian coordinates
   let scale = $state(initialScale);
 
   // Set up canvas
@@ -243,7 +243,26 @@
 
   // #region Coordinate Conversion
 
-  let toCanvasCoordsMatrix: Matrix = $derived(Matrix.identity(3, 3));
+  // This took ages to get working properly
+  let toCanvasCoordsMatrix: Matrix = $derived(
+    Matrix.identity(3)
+          // Camera scale
+          .mmul(scaleMatrix(scale.x, scale.y))
+          // Scale to screen size and adjust for aspect ratio
+          .mmul(scaleMatrix(height, height)) // Use height for x to so the graphs don't get stretched
+          // Center the camera
+          .mmul(scaleMatrix(0.5, 0.5))
+          .mmul(translateMatrix(width / 2, height / 2))
+          // Flip screen
+          .mmul(scaleMatrix(1, -1))
+          .mmul(translateMatrix(0, height))
+          // Camera position
+          .mmul(translateMatrix(cameraPos.x * scale.x, cameraPos.y * scale.y))
+  );
+
+  $effect(() => {
+    console.log(toCanvasCoordsMatrix.toString());
+  })
 
   let fromCanvasCoordsMatrix: Matrix = $derived(inverse(toCanvasCoordsMatrix));
 
@@ -275,10 +294,12 @@
       return;
 
     // Move the camera
-    // TODO: check if the signs of these are correct
-    // TODO: the scaling for this is dodgy, leads to the mouse sliding around
-    cameraPos.x -= event.movementX * scale.x / 5000;
-    cameraPos.y += event.movementY * scale.y / 5000;
+    const pos = fromCanvasCoords(event.clientX, event.clientY);
+    const oldPos = fromCanvasCoords(event.clientX - event.movementX, event.clientY - event.movementY);
+    const deltaX = pos.x - oldPos.x;
+    const deltaY = pos.y - oldPos.y;
+    cameraPos.x += deltaX * height / 2;
+    cameraPos.y -= deltaY * height / 2;
   }
 
   function handleMouseWheel(event: WheelEvent)
@@ -287,7 +308,7 @@
       return;
 
     event.preventDefault();
-    const delta = event.deltaY > 0 ? 1.1 : 0.9;
+    const delta = event.deltaY < 0 ? 1.1 : 0.9;
     scale.x *= delta;
     scale.y *= delta;
   }
