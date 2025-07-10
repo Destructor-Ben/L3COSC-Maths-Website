@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { untrack } from "svelte";
   import * as Colors from "../colors";
   import type { Domain, DisplayFunction } from "$lib/maths/function";
   import type { Point } from "$lib/maths/point";
-	import { getColorsHaveLoaded } from "$lib/global-state.svelte";
+  import { getColorsHaveLoaded } from "$lib/global-state.svelte";
+  import { inverse, Matrix } from "ml-matrix";
+  import { scaleMatrix, rotateMatrix, translateMatrix } from "$lib/maths/matrix";
   
   const colorsHaveLoaded = getColorsHaveLoaded();
 
@@ -242,60 +243,22 @@
 
   // #region Coordinate Conversion
 
+  let toCanvasCoordsMatrix: Matrix = $derived(Matrix.identity(3, 3));
+
+  let fromCanvasCoordsMatrix: Matrix = $derived(inverse(toCanvasCoordsMatrix));
+
   function toCanvasCoords(x: number, y: number): Point
   {
-    // This is the just the inverse of the operations in fromCanvasCoord
-
-    // Add camera position
-    x -= cameraPos.x;
-    y -= cameraPos.y;
-
-    // Scale with camera
-    x /= scale.x;
-    y /= scale.y;
-
-    // Invert y axis
-    y = 1 - y;
-
-    // Adjust for aspect ratios
-    x /= width / height;
-
-    // Move (0, 0) to the middle of the screen
-    x -= 0.5;
-    y -= 0.5;
-
-    // Remap (w, h) to (1, 1)
-    x *= width;
-    y *= height;
-
-    return { x, y };
+    const vector = new Matrix([[x, y, 1]]);
+    const result = vector.mmul(toCanvasCoordsMatrix);
+    return { x: result.get(0, 0), y: result.get(0, 1) };
   }
 
   function fromCanvasCoords(x: number, y: number): Point
   {
-    // Remap (w, h) to (1, 1)
-    x /= width;
-    y /= height;
-
-    // Adjust for aspect ratios
-    x *= width / height;
-
-    // Invert y axis
-    y = 1 - y;
-
-    // Scale with camera
-    x *= scale.x;
-    y *= scale.y;
-
-    // Move (0, 0) to the middle of the screen
-    x += 0.5 * scale.x * width / height;
-    y += 0.5 * scale.y;
-
-    // Add camera position
-    x += cameraPos.x;
-    y += cameraPos.y;
-
-    return { x, y };
+    const vector = new Matrix([[x, y, 1]]);
+    const result = vector.mmul(fromCanvasCoordsMatrix);
+    return { x: result.get(0, 0), y: result.get(0, 1) };
   }
 
   // #endregion
