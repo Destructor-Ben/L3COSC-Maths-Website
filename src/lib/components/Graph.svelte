@@ -4,7 +4,7 @@
   import type { Point } from "$lib/maths/point";
   import { getColorsHaveLoaded } from "$lib/global-state.svelte";
   import { inverse, Matrix } from "ml-matrix";
-  import { scaleMatrix, rotateMatrix, translateMatrix } from "$lib/maths/matrix";
+  import { scaleMatrix, translateMatrix } from "$lib/maths/matrix";
   
   const colorsHaveLoaded = getColorsHaveLoaded();
 

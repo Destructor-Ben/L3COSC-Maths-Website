@@ -13,18 +13,6 @@ export function scaleMatrix(scaleX: number, scaleY: number): Matrix {
     return matrix;
 }
 
-export function rotateMatrix(radians: number): Matrix {
-    const s = Math.sin(radians);
-    const c = Math.cos(radians);
-
-    const matrix = Matrix.identity(3);
-    matrix.set(0, 0, c);
-    matrix.set(0, 1, -s);
-    matrix.set(1, 0, s);
-    matrix.set(1, 1, c);
-    return matrix;
-}
-
 export function translateMatrix(translateX: number, translateY: number): Matrix {
     const matrix = Matrix.identity(3);
     matrix.set(2, 0, translateX);
