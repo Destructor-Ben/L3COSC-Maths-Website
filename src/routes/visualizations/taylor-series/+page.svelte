@@ -60,7 +60,7 @@
   let animationProgress = $state(0); // Used to smooth out the iterations
   let animationInterval: null | number = $state(null);
 
-  function setIterations(newIterations: number) {
+  function setIterations(newIterations: number, playAnimation: boolean = true) {
     if (newIterations < 0 || newIterations > maxIterations) {
       return;
     }
@@ -71,6 +71,9 @@
     // Cancel already started animation
     if (animationInterval !== null)
       clearInterval(animationInterval);
+
+    if (!playAnimation)
+      return;
     
     // Start the animation
     const stepTime = animationTime / animationSteps;
@@ -97,6 +100,8 @@
 </div>
 
 <div class="mg taylor-series">
+  <h2>Explanation</h2>
+
   <p class="description">
     A taylor series is an infinite sum of polynomials used to approximate the original function, but only near the point a, the point the series is calculated around.
     <br />
@@ -115,32 +120,41 @@
 
   <hr />
 
+  <h2>Visualization</h2>
+
   <div class="inputs">
-    <p>Function</p>
-    <select name="test" id="test" bind:value={currentFunctionName}>
-      <option value="sin">sin(x)</option>
-      <option value="cos">cos(x)</option>
-      <option value="tan">tan(x)</option>
-      <option value="exp">e^x</option>
-    </select>
+    <div>
+      <span>Function</span>
+      <select name="test" id="test" bind:value={currentFunctionName}>
+        <option value="sin">sin(x)</option>
+        <option value="cos">cos(x)</option>
+        <option value="tan">tan(x)</option>
+        <option value="exp">e^x</option>
+      </select>
+    </div>
 
-    <br />
-
-    <p>Iterations = {iterations} - [0, {maxIterations}]</p>
-    <input type="range" name="test1" id="test1" bind:value={
-      () => iterations,
-      (value) => setIterations(value)
-    } min={0} max={15}/>
-
-    <br />
-
-    <div class="buttons">
+    <div>
       <button class="button" onclick={() => setIterations(iterations + 1)}>Next Iteration</button>
       <button class="button" onclick={() => setIterations(iterations - 1)}>Previous Iteration</button>
     </div>
+    
+    <div>
+      <span><Math latex="iterations = {iterations}" /> (between 0 and {maxIterations})</span>
+      <input
+        type="range"
+        bind:value={
+          () => iterations,
+          (value) => setIterations(value, false)
+        }
+        min={0}
+        max={15}
+      />
+    </div>
 
-    <p><Math latex="a = {a}" /> (between -10 and 10)</p>
-    <input type="range" name="test2" id="test2" bind:value={a} min={-10} max={10} step={0.01} />
+    <div>
+      <span><Math latex="a = {a}" /> (between -10 and 10)</span>
+      <input type="range" name="test2" id="test2" bind:value={a} min={-10} max={10} step={0.01} />
+    </div>
   </div>
   
   <Graph
@@ -173,17 +187,22 @@
   .taylor-series {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
     gap: 1em;
   }
 
   .inputs {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
+    gap: 0.5em;
 
-    .buttons {
+    & > div {
       display: flex;
+      align-items: center;
+      justify-content: center;
       gap: 1em;
     }
   }
