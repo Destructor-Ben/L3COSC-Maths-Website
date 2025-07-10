@@ -97,6 +97,29 @@ hr {
   }
 }
 
+/* Select dropdown */
+select {
+  background-color: var(--col-fg);
+  border: var(--border);
+  border-radius: 1em;
+  padding: 0.5em;
+
+  transition-property: background-color;
+
+  &:hover {
+    background-color: var(--col-hover);
+  }
+
+  &:active {
+    background-color: var(--col-highlight);
+  }
+
+  /* There is very limited styling that can be done with options unfortunately */
+  option {
+    background-color: var(--col-fg);
+  }
+}
+
 /* Generic midground class */
 .mg {
   background-color: var(--col-mg);
