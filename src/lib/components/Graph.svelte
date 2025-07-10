@@ -12,6 +12,7 @@
   let canvas: HTMLCanvasElement;
   let ctx: null | CanvasRenderingContext2D = $state(null);
 
+  // TODO: add an option to add curved borders, drop shadow, and border to the canvas with a class
   // Props
   interface Props
   {
@@ -56,13 +57,14 @@
   function drawAxes(c: CanvasRenderingContext2D)
   {
     // Draw each axis
-    drawAxis(1, 0, "x", c);
-    drawAxis(-1, 0, "-x", c);
-    drawAxis(0, 1, "y", c);
-    drawAxis(0, -1, "-y", c);
+    drawAxis(1, 0, c);
+    drawAxis(-1, 0, c);
+    drawAxis(0, 1, c);
+    drawAxis(0, -1, c);
   }
 
-  function drawAxis(axisX: number, axisY: number, label: string, c: CanvasRenderingContext2D)
+  // TODO: make the line drawing done before the graph so the functions can overlap it, but do everything else after
+  function drawAxis(axisX: number, axisY: number, c: CanvasRenderingContext2D)
   {
     const origin = toCanvasCoords(0, 0); // Where the origin is on the screen
     const linePadding = 15;
@@ -109,7 +111,7 @@
     drawArrow(c, axisX, axisY, endPoint);
 
     // Draw the label for the axis
-    // TODO
+    drawLabel(c, axisX, axisY, endPoint);
   }
 
   function drawArrow(c: CanvasRenderingContext2D, axisX: number, axisY: number, endPoint: Point)
@@ -143,6 +145,38 @@
     c.strokeStyle = "";
     c.fillStyle = Colors.TextColor;
     c.fill(arrowPath);
+  }
+
+  // TODO: improve
+  function drawLabel(c: CanvasRenderingContext2D, axisX: number, axisY: number, endPoint: Point)
+  {
+    // Find label pos
+    let labelPos = endPoint;
+
+    if (axisX === 0)
+     labelPos.x += 20 // Y axis
+    else if (axisY === 0)
+      labelPos.y -= 30; // X axis
+
+    // Find label text
+    // The y axis is flipped because +y is down on the canvas
+    let label = "";
+    if (axisX === 1)
+      label = "x";
+    else if (axisX === -1)
+      label = "-x";
+    else if (axisY === 1)
+      label = "-y";
+    else if (axisY === -1)
+      label = "y";
+
+    // Draw
+    c.resetTransform();
+    c.fillStyle = Colors.TextColor;
+    c.font = "20px math";
+    c.textAlign = "left";
+    c.textBaseline = "middle";
+    c.fillText(label, labelPos.x, labelPos.y);
   }
 
   function drawGrid(c: CanvasRenderingContext2D)

@@ -3,7 +3,8 @@
 	import * as Colors from "$lib/colors";
   import type { Function, DisplayFunction } from "$lib/maths/function";
   import * as Functions from "$lib/maths/functions";
-	import { taylor } from "$lib/maths/taylor";
+  import { taylor } from "$lib/maths/taylor";
+  import { Math } from "svelte-math";
 
   // #region Functions
 
@@ -54,6 +55,8 @@
 
 <div class="mg">
   <p>TODO: mathematical explanation</p>
+  <Math>Test</Math>
+  <br/>
 
   <select name="test" id="test" bind:value={currentFunctionName}>
     <option value="sin">sin(x)</option>
