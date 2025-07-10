@@ -12,7 +12,6 @@
   let canvas: HTMLCanvasElement;
   let ctx: null | CanvasRenderingContext2D = $state(null);
 
-  // TODO: add an option to add curved borders, drop shadow, and border to the canvas with a class
   // Props
   interface Props
   {
@@ -23,6 +22,7 @@
     initialScale?: Point;
     functions?: Array<DisplayFunction>;
     allowsUserInput?: boolean;
+    hasNiceBorders?: boolean;
   }
 
   let {
@@ -33,6 +33,7 @@
     initialScale = { x: 1, y: 1 },
     functions = [],
     allowsUserInput = true,
+    hasNiceBorders = false,
   }: Props = $props();
 
   // Camera
@@ -346,12 +347,19 @@
   // #endregion
 </script>
 
-<div class="graph">
-  <canvas
-    id={id}
-    width={width}
-    height={height}
-    onmousemove={handleMouseMove}
-    onwheel={handleMouseWheel}
-  ></canvas>
-</div>
+<canvas
+  id={id}
+  class:has-nice-borders={hasNiceBorders}
+  width={width}
+  height={height}
+  onmousemove={handleMouseMove}
+  onwheel={handleMouseWheel}
+></canvas>
+
+<style>
+  canvas.has-nice-borders {
+    border-radius: 1em;
+    border: var(--border);
+    box-shadow: var(--shadow-fg);
+  }
+</style>

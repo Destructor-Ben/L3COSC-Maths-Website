@@ -59,7 +59,7 @@ hr {
   width: 100%;
   border: 2px solid var(--col-highlight);
   border-radius: 1000rem;
-  margin: 0.5em 0em;
+  margin: 1em 0em;
   box-shadow: var(--shadow-fg);
 }
 
