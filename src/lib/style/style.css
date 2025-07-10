@@ -120,6 +120,50 @@ select {
   }
 }
 
+/* Slider styling */
+input[type="range"] {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 15em;
+  height: 0.5em;
+  border-radius: 1em;
+
+  background: var(--col-fg);
+  border: var(--border);
+  border-color: transparent;
+  outline: none;
+  
+  transition-property: border-color, background-color;
+
+  &:hover {
+    border-color: var(--col-hover);
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+
+    width: 1em;
+    height: 1em;
+    background: var(--col-highlight);
+    border-radius: 100%;
+    cursor: pointer;
+    box-shadow: var(--shadow-fg);
+  }
+
+  &::-moz-range-thumb {
+    appearance: none;
+
+    width: 1em;
+    height: 1em;
+    background: var(--col-highlight);
+    border-radius: 100%;
+    cursor: pointer;
+    box-shadow: var(--shadow-fg);
+  }
+}
+
 /* Generic midground class */
 .mg {
   background-color: var(--col-mg);
