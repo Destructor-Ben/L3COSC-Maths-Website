@@ -248,21 +248,19 @@
     Matrix.identity(3)
           // Camera scale
           .mmul(scaleMatrix(scale.x, scale.y))
-          // Scale to screen size and adjust for aspect ratio
-          .mmul(scaleMatrix(height, height)) // Use height for x to so the graphs don't get stretched
+          // Scale to screen size
+          // Use height for x to so the graphs don't get stretched
+          // Half so the camera can be centered
+          .mmul(scaleMatrix(height / 2, height / 2))
           // Center the camera
-          .mmul(scaleMatrix(0.5, 0.5))
           .mmul(translateMatrix(width / 2, height / 2))
           // Flip screen
           .mmul(scaleMatrix(1, -1))
           .mmul(translateMatrix(0, height))
           // Camera position
-          .mmul(translateMatrix(cameraPos.x * scale.x, cameraPos.y * scale.y))
+          // This scaling could probably be tidied up but it works
+          .mmul(translateMatrix(-cameraPos.x * scale.x * height / 2, cameraPos.y * scale.y * height / 2))
   );
-
-  $effect(() => {
-    console.log(toCanvasCoordsMatrix.toString());
-  })
 
   let fromCanvasCoordsMatrix: Matrix = $derived(inverse(toCanvasCoordsMatrix));
 
@@ -296,10 +294,8 @@
     // Move the camera
     const pos = fromCanvasCoords(event.clientX, event.clientY);
     const oldPos = fromCanvasCoords(event.clientX - event.movementX, event.clientY - event.movementY);
-    const deltaX = pos.x - oldPos.x;
-    const deltaY = pos.y - oldPos.y;
-    cameraPos.x += deltaX * height / 2;
-    cameraPos.y -= deltaY * height / 2;
+    cameraPos.x -= pos.x - oldPos.x;
+    cameraPos.y -= pos.y - oldPos.y;
   }
 
   function handleMouseWheel(event: WheelEvent)
