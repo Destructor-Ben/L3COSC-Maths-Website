@@ -6,6 +6,7 @@
   import { taylor } from "$lib/maths/taylor";
   import { Math } from "svelte-math";
   import { lerp, smoothstep } from "$lib/maths/lerp";
+  import * as latex from "$lib/maths/latex";
 
   // TODO: remove tan (it's too hard)
 
@@ -49,7 +50,6 @@
   const animationTime = 1000; // In milliseconds
   const animationSteps = 100;
 
-  const taylorSeriesLatex = "f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!} (x - a)^n";
 
   let currentFunctionName = $state("sin");
   let currentFunction = $derived(functions[currentFunctionName]);
@@ -115,7 +115,7 @@
     The equation for a taylor series is given by the following formula:
     <br />
     <br />
-    <Math latex={taylorSeriesLatex} displayMode />
+    <Math latex={latex.taylorSeries} displayMode />
   </p>
 
   <hr />

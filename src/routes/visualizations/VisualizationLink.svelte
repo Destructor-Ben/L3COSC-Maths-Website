@@ -4,7 +4,7 @@
   interface Props {
     title: string,
     link: string,
-    children: Snippet // Graph, image, etc. drawn as an interactive display
+    children: Snippet // Thumnail
   }
 
   let {
@@ -37,6 +37,10 @@
       border-radius: 1em;
       height: 100%;
       overflow: hidden;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     border-color: transparent;
