@@ -297,7 +297,13 @@
           .mmul(translateMatrix(-cameraPos.x * scale.x * height / 2, cameraPos.y * scale.y * height / 2))
   );
 
-  let fromCanvasCoordsMatrix: Matrix = $derived(inverse(toCanvasCoordsMatrix));
+  let fromCanvasCoordsMatrix: Matrix = $derived.by(() => {
+    try {
+      return inverse(toCanvasCoordsMatrix);
+    } catch (error) {
+      return Matrix.identity(3); // So we don't get any errors
+    }
+  });
 
   function toCanvasCoords(x: number, y: number): Point
   {
