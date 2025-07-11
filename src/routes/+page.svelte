@@ -20,8 +20,10 @@
 <svelte:window onresize={handleWindowResize} />
 
 <div class="mg title">
-  <h1>Name</h1>
+  <h1>Phobos</h1>
   <h2>Maths: Visualized</h2>
+  <h2>Open Sourced</h2>
+  <h2>Knowledge without a pricetag</h2>
   <hr />
 
   <!-- TODO: Finish the main page-->

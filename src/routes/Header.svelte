@@ -1,13 +1,13 @@
 <header class="mg">
   <div>
-    <img src="/favicon.png" alt="Logo">
-    <h1>Name</h1>
+    <img src="/favicon.svg" alt="Logo">
+    <h1>Phobos</h1>
   </div>
 
   <div class="links">
     <a href="/">Home</a>
     <a href="/visualizations">Visualizations</a>
-    <a href="/">Coming Soon</a>
+    <a href="/about">About</a>
   </div>
 </header>
 

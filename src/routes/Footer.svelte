@@ -1,6 +1,12 @@
 <footer class="mg">
   <p>Copyright © 2025 Destructor_Ben</p>
-  <p>TODO: finish</p>
+
+  <div class="links">
+    <a href="/about/eula">EULA</a>
+    <a href="/about/privacy-policy">Privacy Policy</a>
+    <a href="/about/terms-of-use">Terms Of Use</a>
+  </div>
+
   <p>Licensed under the MIT License</p>
 </footer>
 
