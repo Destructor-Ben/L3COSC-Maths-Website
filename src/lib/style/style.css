@@ -54,6 +54,14 @@ h6 {
   font-size: 1rem;
 }
 
+strong {
+  font-weight: bold;
+}
+
+ul {
+  padding: revert;
+}
+
 /* Horizontal rule */
 hr {
   width: 100%;
