@@ -7,6 +7,8 @@
     <a class="link" href="/about/privacy-policy">Privacy Policy</a>
     |
     <a class="link" href="/about/terms-of-use">Terms Of Use</a>
+    |
+    <a class="link" href="https://github.com/Destructor-Ben/L3COSC-Maths-Website">Source Code</a>
   </div>
 
   <p>Licensed under the MIT License</p>
