@@ -17,6 +17,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>Phobos</title>
+</svelte:head>
+
 <svelte:window onresize={handleWindowResize} />
 
 <div class="mg title">

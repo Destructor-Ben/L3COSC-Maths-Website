@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Phobos - About</title>
+</svelte:head>
+
 <div class="mg">
   <h1>About</h1>
 </div>

@@ -2,6 +2,10 @@
   import { page } from "$app/state";
 </script>
 
+<svelte:head>
+  <title>Phobos - Error</title>
+</svelte:head>
+
 <div class="error-root">
   <div class="mg">
     <div>

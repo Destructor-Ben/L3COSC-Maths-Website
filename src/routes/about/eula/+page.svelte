@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Phobos - EULA</title>
+</svelte:head>
+
 <div class="mg">
   <h1>EULA</h1>
 </div>

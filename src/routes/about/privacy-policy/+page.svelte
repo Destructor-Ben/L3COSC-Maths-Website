@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Phobos - Privacy Policy</title>
+</svelte:head>
+
 <div class="mg">
   <h1>Privacy Policy</h1>
 </div>

@@ -5,6 +5,10 @@
   import * as latex from "$lib/maths/latex";
 </script>
 
+<svelte:head>
+  <title>Phobos - Visualizations</title>
+</svelte:head>
+
 <div class="visualization-list">
   <VisualizationLink title="Taylor Series" link="/visualizations/taylor-series">
     <Math latex={latex.taylorSeries} />

@@ -95,6 +95,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Phobos - Taylor Series</title>
+</svelte:head>
+
 <div class="mg">
   <h1>Taylor Series</h1>
 </div>
