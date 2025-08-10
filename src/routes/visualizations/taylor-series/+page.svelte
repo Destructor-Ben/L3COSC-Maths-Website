@@ -220,7 +220,7 @@
       font-size: 2.5rem;
     }
 
-    canvas {
+    #taylor-series-graph {
       align-self: center;
     }
   }

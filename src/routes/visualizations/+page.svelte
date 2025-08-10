@@ -35,7 +35,7 @@
   }
 
   :global {
-    math {
+    .visualization-button math {
       font-size: 1.85rem;
     }
   }
