@@ -18,10 +18,6 @@
     <Math latex={latex.mvtAndRollesTheorem} />
   </VisualizationLink>
 
-  <VisualizationLink title="Fundamentals of Calculus" link="/visualizations/fundamentals-of-calculus">
-    <Math latex={latex.fundamentalsOfCalculus} />
-  </VisualizationLink>
-
   <VisualizationLink title="More Coming Soon" link="/visualizations/">
     TODO
   </VisualizationLink>
