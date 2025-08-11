@@ -1,18 +1,17 @@
 <script lang="ts">
+  import Title from "$lib/components/Title.svelte";
   import type { Snippet } from "svelte";
 
   // This component isn't a layout because we need to be able to pass in props
   interface Props {
-    children: Snippet;
-    title: string;
+    children: Snippet; // The contents of the page
+    title: string; // Used in the page title + heading
   }
 
   let { children, title }: Props = $props();
 </script>
 
-<svelte:head>
-  <title>Phobos - {title}</title>
-</svelte:head>
+<Title title={title} />
 
 <!--
   A container is needed since we want the content to have a gap, but we can't set it on <main>
