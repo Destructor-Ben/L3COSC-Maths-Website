@@ -6,6 +6,7 @@
   import { inverse, Matrix } from "ml-matrix";
   import { scaleMatrix, translateMatrix } from "$lib/maths/matrix";
   
+  // This is so we can re-render the canvas once the colours load
   const colorsHaveLoaded = getColorsHaveLoaded();
 
   // Canvas state
@@ -22,9 +23,11 @@
     initialScale?: Point;
     functions?: Array<DisplayFunction>;
     allowsUserInput?: boolean;
-    hasNiceBorders?: boolean;
+    hasNiceBorders?: boolean; // Sometimes the graph might not need border styling, for example, when used as a background
     minScale?: number;
     maxScale?: number;
+    // Maximum distance between the camera position and the origin
+    // Applied on each axis individually, clamping the position in a square
     maxDst?: number;
   }
 
@@ -59,6 +62,8 @@
     height = canvas.height;
   });
 
+  // TODO: rework some of the rendering
+  
   // #region Rendering
 
   function drawAxes(c: CanvasRenderingContext2D)
@@ -284,6 +289,9 @@
 
   // #region Coordinate Conversion
 
+  // toCanvasCoords matrix is used to convert cartesian coordinates to canvas coordinates
+  // fromCanvasCoords matrix converts from canvas coordinates to cartesian coordinates
+
   // This took ages to get working properly
   let toCanvasCoordsMatrix: Matrix = $derived(
     Matrix.identity(3)
@@ -304,10 +312,12 @@
   );
 
   let fromCanvasCoordsMatrix: Matrix = $derived.by(() => {
+    // Use a try catch to avoid errors when the toCanvasCoordsMatrix isn't invertible
+    // This happens when scale is 0 or the app is being built as a static site
     try {
       return inverse(toCanvasCoordsMatrix);
     } catch (error) {
-      return Matrix.identity(3); // So we don't get any errors
+      return Matrix.identity(3);
     }
   });
 
@@ -344,7 +354,7 @@
     cameraPos.x -= pos.x - oldPos.x;
     cameraPos.y -= pos.y - oldPos.y;
 
-    // Clamp so the user can't go crazy
+    // Clamp so the user can't go crazy or get lost
     cameraPos.x = Math.min(maxDst, Math.max(-maxDst, cameraPos.x));
     cameraPos.y = Math.min(maxDst, Math.max(-maxDst, cameraPos.y));
   }
