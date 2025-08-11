@@ -1,10 +1,9 @@
 <script>
   import { page } from "$app/state";
+  import Title from "$lib/components/Title.svelte";
 </script>
 
-<svelte:head>
-  <title>Phobos - Error</title>
-</svelte:head>
+<Title title="Error" />
 
 <div class="error-root">
   <div class="mg">
