@@ -35,11 +35,14 @@
   let currentFunctionName = $state("sin");
   let currentFunction = $derived(functions[currentFunctionName]);
 
+  const maxIterations = 15; // Maximum number of iterations
+
   let a = $state(0.5); // The x value the series is calculated around
   let iterations = $state(1); // The number of iterations of the series
   let previousIterations = $state(1); // The previous iteration, used for the animation
   let animationProgress = $state(0); // The progress of the animation, from 0 to 1
   let animationInterval: null | number = $state(null); // The interval ID of the animation so it can be cleared later
+  let animationTimer: null | number = $state(null); // The timer ID of the animation so it can be cleared later
 
   let displayFunctions: DisplayFunction[] = $derived(
     [
@@ -60,12 +63,13 @@
     ]
   );
 
-  // TODO: cleanup the animation - if the buttons are spammed it doesn't work well
-  const maxIterations = 15;
-  const animationTime = 1000; // In milliseconds
-  const animationSteps = 100;
+  const animationTime = 1000; // How long the animation takes in ms
+  const animationSteps = animationTime / 1000 * 60; // How many steps the animation has (more is smoother)
+  const animationStepTime = animationTime / animationSteps; // How long each step of the animation takes in ms
 
   // Changes the iteration of the series, as well as triggers an animation
+  // TODO: use requestAnimationFrame
+  // TODO: maybe fix the jump when pressing the next button before the animation is done
   function setIterations(newIterations: number, playAnimation: boolean = true) {
     if (newIterations < 0 || newIterations > maxIterations) {
       return;
@@ -77,22 +81,24 @@
     // Cancel already started animation
     if (animationInterval !== null)
       clearInterval(animationInterval);
+    
+    if (animationTimer !== null)
+      clearTimeout(animationTimer);
 
     if (!playAnimation)
       return;
     
     // Start the animation
-    const stepTime = animationTime / animationSteps;
     animationProgress = 0;
 
     let currentSteps = 0;
     animationInterval = setInterval(() => {
       currentSteps++;
       animationProgress = currentSteps / animationSteps;
-    }, stepTime);
+    }, animationStepTime);
 
     // Run once the animation is done to clear the interval
-    setTimeout(() => {
+    animationTimer = setTimeout(() => {
       animationProgress = 1;
 
       if (animationInterval !== null)
