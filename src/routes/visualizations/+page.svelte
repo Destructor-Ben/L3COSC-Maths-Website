@@ -10,15 +10,15 @@
 <!-- Use a preview of each equation in the list -->
 <div class="visualization-list">
   <VisualizationLink title="Taylor Series" link="/visualizations/taylor-series">
-    <Math latex={latex.taylorSeries} />
+    <Math latex={latex.taylorSeries} displayMode />
   </VisualizationLink>
 
   <VisualizationLink title="Newton's Method" link="/visualizations/newtons-method">
-    <Math latex={latex.newtonsMethod} />
+    <Math latex={latex.newtonsMethod} displayMode />
   </VisualizationLink>
 
   <VisualizationLink title="Mean Value & Rolle's Theorem" link="/visualizations/mvt-and-rolles-theorem">
-    <Math latex={latex.mvtAndRollesTheorem} />
+    <Math latex={latex.mvtAndRollesTheorem} displayMode />
   </VisualizationLink>
 
   <!-- This is a special card that isn't a link but will use similar styling -->
