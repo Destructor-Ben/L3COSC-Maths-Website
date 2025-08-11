@@ -90,14 +90,12 @@
     gap: 1em;
   }
 
-  /*
-    Make the graph centered.
-    A container is needed since we can't set a class on the graph directly.
-  */
-  :global {
-    .graph-container canvas {
-      align-self: center;
-    }
+  /* Make the graph centered */
+  .graph-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
   }
 
   /*
