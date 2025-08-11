@@ -1,6 +1,6 @@
 <script>
-	import Graph from "$lib/components/Graph.svelte";
-	import VisualizationLink from "./VisualizationLink.svelte";
+  import Graph from "$lib/components/Graph.svelte";
+  import VisualizationLink from "./VisualizationLink.svelte";
   import { Math } from "svelte-math";
   import * as latex from "$lib/maths/latex";
 </script>

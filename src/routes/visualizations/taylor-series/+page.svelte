@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Graph from "$lib/components/Graph.svelte";
-	import * as Colors from "$lib/colors";
+  import Graph from "$lib/components/Graph.svelte";
+  import * as Colors from "$lib/colors";
   import type { Function, DisplayFunction } from "$lib/maths/function";
   import * as Functions from "$lib/maths/functions";
   import { taylor } from "$lib/maths/taylor";
