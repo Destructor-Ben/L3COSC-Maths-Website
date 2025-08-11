@@ -27,6 +27,12 @@ math {
   transition-property: none;
 }
 
+/* Allow math to be made big */
+.big-math math {
+  font-size: 2rem;
+  text-shadow: var(--shadow-big-math)
+}
+
 /* Headings */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);

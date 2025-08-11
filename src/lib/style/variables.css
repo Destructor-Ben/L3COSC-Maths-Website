@@ -29,6 +29,7 @@
   /* Shadows */
   --shadow-fg: rgba(0, 0, 0, 0.15) 0px 3px 6px;
   --shadow-mg: rgba(0, 0, 0, 0.25) 0px 3px 8px;
+  --shadow-big-math: 2px 2px 3px rgba(0,0,0,0.3);
 
   /* Miscellaneous */
   --transition-duration: 250ms;
@@ -40,7 +41,7 @@
   --article-padding: 1.25em;
 }
 
-/* Light mode - Applied based if the operating system wants to use light mode */
+/* Light mode - applied if the operating system wants to use light mode */
 @media (prefers-color-scheme: light) {
   :root {
     --col-text: #0a0a0a;

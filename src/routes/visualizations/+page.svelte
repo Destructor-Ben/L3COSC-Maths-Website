@@ -45,6 +45,7 @@
   :global {
     .visualization-button math {
       font-size: 1.85rem;
+      text-shadow: var(--shadow-big-math);
     }
   }
 </style>
