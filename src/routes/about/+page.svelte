@@ -1,8 +1,8 @@
 <script>
-  import AboutPageTemplate from "./AboutPageTemplate.svelte";
+  import InfoPage from "./InfoPage.svelte";
 </script>
 
-<AboutPageTemplate title="About">
+<InfoPage title="About">
   <p>
     Phobos is an online maths visualization tool created by Destructor_Ben,
     intended for use by Maths students in New Zealand studying NCEA or at university.
@@ -29,4 +29,4 @@
     Phobos was also initially created as a project for the Level 3 Computer Science course at my school,
     though I have plans to continue developing it and make it more than just a school project.
   </p>
-</AboutPageTemplate>
+</InfoPage>

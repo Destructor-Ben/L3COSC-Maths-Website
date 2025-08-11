@@ -1,8 +1,8 @@
 <script>
-  import AboutPageTemplate from "../AboutPageTemplate.svelte";
+  import InfoPage from "../InfoPage.svelte";
 </script>
 
-<AboutPageTemplate title="Terms of Use">
+<InfoPage title="Terms of Use">
   <h2>1. Introduction</h2>
   <p>Welcome to Phobos (the "Website"). These Terms of Service ("Terms") govern your access to and use of the Website and any services or content provided through it (collectively, the "Services"). By accessing or using the Website, you agree to be bound by these Terms. If you do not agree with these Terms, please do not use the Website.</p>
 
@@ -46,4 +46,4 @@
 
   <br />
   <p>Thank you for using Phobos. We hope you have a positive experience.</p>
-</AboutPageTemplate>
+</InfoPage>

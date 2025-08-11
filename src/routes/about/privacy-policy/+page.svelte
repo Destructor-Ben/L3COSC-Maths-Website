@@ -1,8 +1,8 @@
 <script>
-  import AboutPageTemplate from "../AboutPageTemplate.svelte";
+  import InfoPage from "../InfoPage.svelte";
 </script>
 
-<AboutPageTemplate title="Privacy Policy">
+<InfoPage title="Privacy Policy">
   <h2>Introduction</h2>
   <p>This Privacy Policy explains how Phobos ("we," "us," or "our") handles user information on our website (the "Website"). We are committed to protecting your privacy. This policy is designed to inform you that our Website does not collect, store, or process any personal data from its users.</p>
 
@@ -27,4 +27,4 @@
 
   <br />
   <p>Thank you for using Phobos. We hope you have a positive experience.</p>
-</AboutPageTemplate>
+</InfoPage>

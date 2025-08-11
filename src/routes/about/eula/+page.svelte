@@ -1,8 +1,8 @@
 <script>
-  import AboutPageTemplate from "../AboutPageTemplate.svelte";
+  import InfoPage from "../InfoPage.svelte";
 </script>
 
-<AboutPageTemplate title="EULA">
+<InfoPage title="EULA">
   <h2>1. Introduction</h2>
   <p>This End User License Agreement ("EULA") governs your use of the software provided by Destructor_Ben through Phobos (the "Website"), including any updates or modifications (collectively, the "Software"). By downloading, installing, or using the Software, you agree to be bound by this EULA. If you do not agree with this EULA, do not use the Software.</p>
 
@@ -40,4 +40,4 @@
 
   <br />
   <p>Thank you for using Phobos. We hope you have a positive experience.</p>
-</AboutPageTemplate>
+</InfoPage>
