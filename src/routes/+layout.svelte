@@ -30,7 +30,8 @@
   }
 
   main {
-    flex: 1; /* Makes it grow to take up the remaining space */
+    /* Grow to fill the parent container */
+    flex: 1;
     display: flex;
     flex-direction: column;
     height: 100%;

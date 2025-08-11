@@ -19,6 +19,7 @@
 
 <style>
   .error-root {
+    /* Grow to fill the parent container */
     flex: 1;
     display: flex;
     flex-direction: column;
