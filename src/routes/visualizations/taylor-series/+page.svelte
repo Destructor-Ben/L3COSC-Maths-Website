@@ -108,7 +108,7 @@
   <div class="mg taylor-series">
     <h2>Explanation</h2>
 
-    <p class="description">
+    <p class="taylor-series-description">
       A taylor series is an infinite sum of polynomials used to approximate the original function, but only near the point a, the point the series is calculated around.
       <br />
       <br />
@@ -223,7 +223,7 @@
   }
 
   :global {
-    .description math {
+    .taylor-series-description math {
       font-size: 2.5rem;
     }
 
