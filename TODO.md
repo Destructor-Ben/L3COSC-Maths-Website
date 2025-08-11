@@ -1,6 +1,4 @@
 TODO
-- Bounds checks on camera scale + translation
-  - Use this as one of the numerical inputs
 - Draw points on the graphs
 - Draw labels on the graphs
 

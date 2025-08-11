@@ -23,6 +23,9 @@
     functions?: Array<DisplayFunction>;
     allowsUserInput?: boolean;
     hasNiceBorders?: boolean;
+    minScale?: number;
+    maxScale?: number;
+    maxDst?: number;
   }
 
   let {
@@ -34,6 +37,9 @@
     functions = [],
     allowsUserInput = true,
     hasNiceBorders = false,
+    minScale = 0.01,
+    maxScale = 5,
+    maxDst = 100
   }: Props = $props();
 
   // Camera
@@ -337,6 +343,10 @@
     const oldPos = fromCanvasCoords(event.clientX - event.movementX, event.clientY - event.movementY);
     cameraPos.x -= pos.x - oldPos.x;
     cameraPos.y -= pos.y - oldPos.y;
+
+    // Clamp so the user can't go crazy
+    cameraPos.x = Math.min(maxDst, Math.max(-maxDst, cameraPos.x));
+    cameraPos.y = Math.min(maxDst, Math.max(-maxDst, cameraPos.y));
   }
 
   function handleMouseWheel(event: WheelEvent)
@@ -348,6 +358,10 @@
     const delta = event.deltaY < 0 ? 1.1 : 0.9;
     scale.x *= delta;
     scale.y *= delta;
+
+    // Clamp within an acceptable range
+    scale.x = Math.min(maxScale, Math.max(minScale, scale.x));
+    scale.y = Math.min(maxScale, Math.max(minScale, scale.y));
   }
 
   // #endregion
