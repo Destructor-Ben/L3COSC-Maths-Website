@@ -1,8 +1,8 @@
 <header class="mg">
-  <div>
+  <a href="/" class="logo-link">
     <img src="/favicon.svg" alt="Logo">
     <h1>Phobos</h1>
-  </div>
+  </a>
 
   <div class="links">
     <a href="/">Home</a>
@@ -19,7 +19,7 @@
     margin: 1em;
     margin-bottom: 0;
 
-    & > div {
+    & > * {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -34,6 +34,11 @@
       height: var(--header-height);
     }
 
+    /* Revert default styles on the logo link */
+    .logo-link {
+      text-decoration: none;
+    }
+
     .links {
       align-items: center;
       align-self: stretch;
@@ -41,7 +46,7 @@
     }
 
     /* Heading buttons */
-    a {
+    a:not(.logo-link) {
       height: var(--button-height);
       padding: 0em 1em;
       border-radius: 1em;

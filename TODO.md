@@ -6,7 +6,9 @@ TODO
 - Draw labels on the graphs
 
 - Ensure everything works in firefox
+  - Definitely check sliders + dropdowns
 - Test light mode
+- Get other logo from quill
 
 - MAIN TODO (IF YOU FORGOT WHAT YOU WERE DOING):
   - FINISH TAYLOR SERIES
