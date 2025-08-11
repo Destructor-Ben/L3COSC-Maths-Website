@@ -1,13 +1,13 @@
 <script lang="ts">
-  import VisualizationPageTemplate from "../VisualizationPage.svelte";
+  import VisualizationPage from "../VisualizationPage.svelte";
 </script>
 
-<VisualizationPageTemplate title="Mean Value and Rolle's Theorem">
+<VisualizationPage title="Mean Value and Rolle's Theorem">
   {#snippet explanation()}
-    Hello
+    TODO
   {/snippet}
 
   {#snippet visualization()}
-    Vis
+    TODO
   {/snippet}
-</VisualizationPageTemplate>
+</VisualizationPage>

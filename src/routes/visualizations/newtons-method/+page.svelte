@@ -1,13 +1,13 @@
 <script lang="ts">
-  import VisualizationPageTemplate from "../VisualizationPage.svelte";
+  import VisualizationPage from "../VisualizationPage.svelte";
 </script>
 
-<VisualizationPageTemplate title="Newton's Method">
+<VisualizationPage title="Newton's Method">
   {#snippet explanation()}
-    Hello
+    TODO
   {/snippet}
 
   {#snippet visualization()}
-    Vis
+    TODO
   {/snippet}
-</VisualizationPageTemplate>
+</VisualizationPage>

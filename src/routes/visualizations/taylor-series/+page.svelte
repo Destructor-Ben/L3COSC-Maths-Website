@@ -1,4 +1,6 @@
 <script lang="ts">
+  // TODO: clean these up
+  import VisualizationPage from "../VisualizationPage.svelte";
   import Graph from "$lib/components/Graph.svelte";
   import * as Colors from "$lib/colors";
   import type { Function, DisplayFunction } from "$lib/maths/function";
@@ -8,24 +10,14 @@
   import { lerp, smoothstep } from "$lib/maths/lerp";
   import * as latex from "$lib/maths/latex";
 
-  // TODO: remove tan (it's too hard)
+  // TODO: look through the code
 
   // #region Functions
 
   const functions: Record<string, Function> = {
     sin: Functions.Sin,
     cos: Functions.Cos,
-    tan: Functions.Tan,
     exp: Functions.Exp,
-  }
-
-  function getFunctionDomains() {
-    switch (currentFunctionName) {
-      case "tan":
-        return Functions.getTanDomains;
-      default:
-        return undefined;
-    }
   }
 
   function getFunctionDerivative() : (n: number) => Function
@@ -35,8 +27,6 @@
         return Functions.getSinDerivative;
       case "cos":
         return Functions.getCosDerivative;
-      case "tan":
-        return Functions.getTanDerivative;
       case "exp":
         return Functions.getExpDerivative;
       default:
@@ -95,46 +85,14 @@
   }
 </script>
 
-<svelte:head>
-  <title>Phobos - Taylor Series</title>
-</svelte:head>
-
-
-<div class="container">
-  <div class="mg">
-    <h1>Taylor Series</h1>
-  </div>
-
-  <div class="mg taylor-series">
-    <h2>Explanation</h2>
-
-    <p class="taylor-series-description">
-      A taylor series is an infinite sum of polynomials used to approximate the original function, but only near the point a, the point the series is calculated around.
-      <br />
-      <br />
-      A taylor series works by calculating the derivative of the original function at the point a, and integrating these derivatives to create a polynomial that will eventually converge to the original function.
-      <br />
-      <br />
-      Not all taylor series will converge, and some will only converge for a limited range of x values.
-      <br />
-      <br />
-      The equation for a taylor series is given by the following formula:
-      <br />
-      <br />
-      <Math latex={latex.taylorSeries} displayMode />
-    </p>
-
-    <hr />
-
-    <h2>Visualization</h2>
-
+<VisualizationPage title="Taylor Series">
+  {#snippet visualization()}
     <div class="inputs">
       <div>
         <span>Function</span>
         <select name="test" id="test" bind:value={currentFunctionName}>
           <option value="sin">sin(x)</option>
           <option value="cos">cos(x)</option>
-          <option value="tan">tan(x)</option>
           <option value="exp">e^x</option>
         </select>
       </div>
@@ -144,7 +102,7 @@
         <button class="button" onclick={() => setIterations(iterations - 1)}>Previous Iteration</button>
       </div>
       
-      <div>
+      <div class="slider">
         <span><Math latex="iterations = {iterations}" /> (between 0 and {maxIterations})</span>
         <input
           type="range"
@@ -157,7 +115,7 @@
         />
       </div>
 
-      <div>
+      <div class="slider">
         <span><Math latex="a = {a}" /> (between -10 and 10)</span>
         <input type="range" name="test2" id="test2" bind:value={a} min={-10} max={10} step={0.01} />
       </div>
@@ -174,7 +132,6 @@
           name: "f(x)",
           color: () => Colors.ContrastRed,
           func: currentFunction,
-          getDomains: getFunctionDomains(),
         },
         {
           name: "taylor(x)",
@@ -187,18 +144,18 @@
         }
       ]}
     />
-  </div>
-</div>
+  {/snippet}
+  
+  {#snippet explanation()}
+    <p>A taylor series is an infinite sum of polynomials used to approximate a function, but only near the point <Math latex="a" />, which is the point the series is calculated around.</p>
+    <p>A taylor series works by calculating the derivatives of the original function, substituting <Math latex="a" /> for <Math latex="x" />, then integrating these derivatives to create a polynomial that will eventually converge to the original function.</p>
+    <p>Not all taylor series will converge back to the original function, and some will only converge close to the point <Math latex="a" />.</p>
+    <p>The equation for a taylor series is given by the following formula:</p>
+    <p class="taylor-series-math"><Math latex={latex.taylorSeries} displayMode /></p>
+  {/snippet}
+</VisualizationPage>
 
 <style>
-  .taylor-series {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    gap: 1em;
-  }
-
   .inputs {
     display: flex;
     flex-direction: column;
@@ -209,22 +166,20 @@
     & > div {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: center;/* TODO: max width?*/
       gap: 1em;
+      margin-left: 5em;
+      margin-right: 5em;
+
+      &.slider {
+        justify-content: space-between;
+      }
     }
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    gap: 1em;
   }
 
   :global {
-    .taylor-series-description math {
-      font-size: 2.5rem;
+    .taylor-series-math math {
+      font-size: 2rem;
     }
 
     #taylor-series-graph {

@@ -58,5 +58,12 @@
     
     /* Text requires a larger amount of padding to look nice */
     padding: var(--article-padding);
+    
+    /* Flex styles */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1em;
   }
 </style>
