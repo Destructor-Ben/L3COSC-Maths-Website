@@ -1,5 +1,13 @@
-<svelte:head>
-  <title>Phobos - Newton's Method</title>
-</svelte:head>
+<script lang="ts">
+  import VisualizationPageTemplate from "../VisualizationPage.svelte";
+</script>
 
-<h1>NEWTON</h1>
+<VisualizationPageTemplate title="Newton's Method">
+  {#snippet explanation()}
+    Hello
+  {/snippet}
+
+  {#snippet visualization()}
+    Vis
+  {/snippet}
+</VisualizationPageTemplate>

@@ -2,15 +2,16 @@
   import Title from "$lib/components/Title.svelte";
   import type { Snippet } from "svelte";
 
-  // This component is the template page for the informational pages
+  // This is the template page for a visualization
   // This isn't a layout because we need to be able to pass in props
 
   interface Props {
-    children: Snippet; // The contents of the page
-    title: string; // Used in the page title + heading
+    title: string; // Used in the page title and heading
+    visualization: Snippet; // The visualization part of the page (which is HTML)
+    explanation: Snippet; // The explanation part of the page (which is HTML)
   }
 
-  let { children, title }: Props = $props();
+  let { title, visualization, explanation }: Props = $props();
 </script>
 
 <Title title={title} />
@@ -25,9 +26,12 @@
   </div>
 
   <div class="mg content">
-    <!-- Content goes here -->
-    {@render children()} 
+    <!-- Put the explanation first so people know how ot use the viusalization -->
+    <h1>Explanation</h1>
+    {@render explanation()}
     <hr />
+    <h1>Visualization</h1>
+    {@render visualization()}
   </div>
 </div>
 
@@ -40,7 +44,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 1em;
   }
 
@@ -55,10 +58,5 @@
     
     /* Text requires a larger amount of padding to look nice */
     padding: var(--article-padding);
-
-    /* Fixes the horizontal rule adding making the div seem too large */
-    hr {
-      margin-bottom: 0;
-    }
   }
 </style>

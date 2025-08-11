@@ -1,5 +1,13 @@
-<svelte:head>
-  <title>Phobos - MVT</title>
-</svelte:head>
+<script lang="ts">
+  import VisualizationPageTemplate from "../VisualizationPage.svelte";
+</script>
 
-<h1>MVT</h1>
+<VisualizationPageTemplate title="Mean Value and Rolle's Theorem">
+  {#snippet explanation()}
+    Hello
+  {/snippet}
+
+  {#snippet visualization()}
+    Vis
+  {/snippet}
+</VisualizationPageTemplate>
