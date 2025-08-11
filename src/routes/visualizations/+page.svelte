@@ -19,6 +19,8 @@
 
   <VisualizationLink title="Mean Value & Rolle's Theorem" link="/visualizations/mvt-and-rolles-theorem">
     <Math latex={latex.mvtAndRollesTheorem} displayMode />
+    <br />
+    <Math latex={latex.mvtAndRollesTheoremPart2} displayMode />
   </VisualizationLink>
 
   <!-- This is a special card that isn't a link but will use similar styling -->

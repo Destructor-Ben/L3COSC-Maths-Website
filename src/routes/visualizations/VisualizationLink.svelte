@@ -57,6 +57,7 @@
 
       /* Center the thumbnail just to be safe */
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }

@@ -39,7 +39,7 @@
   let iterations = $state(1); // The number of iterations of the series
   let previousIterations = $state(1); // The previous iteration, used for the animation
   let animationProgress = $state(0); // The progress of the animation, from 0 to 1
-  let animationInterval: null | number = $state(null); // THe interval ID of the animation so it can be cleared later
+  let animationInterval: null | number = $state(null); // The interval ID of the animation so it can be cleared later
 
   let displayFunctions: DisplayFunction[] = $derived(
     [
@@ -60,7 +60,7 @@
     ]
   );
 
-  // TODO: cleanup the animation
+  // TODO: cleanup the animation - if the buttons are spammed it doesn't work well
   const maxIterations = 15;
   const animationTime = 1000; // In milliseconds
   const animationSteps = 100;
