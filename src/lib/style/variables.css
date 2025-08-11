@@ -35,6 +35,9 @@
   --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
 
   --border: 3px solid var(--col-highlight);
+
+  --article-width: 768px;
+  --article-padding: 1.25em;
 }
 
 /* Light mode - Applied based if the operating system wants to use light mode */
