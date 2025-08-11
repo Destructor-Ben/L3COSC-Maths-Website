@@ -103,15 +103,21 @@
 
     // Reset the animation
     animationProgress = 0;
-    animationRunning = false;
     animationStart = undefined;
 
-    if (!playAnimation)
+    // Stop the animation if we don't want to play one and don't start a new one
+    if (!playAnimation) {
+      animationRunning = false;
       return;
+    }
     
-    // Start the animation
-    animationRunning = true
-    requestAnimationFrame(stepAnimation);
+    // Start the animation if it hasn't already
+    // Stops excess calls to requestAnimationFrame
+    // It won't have a visual effect if that does happen but it isn't ideal
+    if (!animationRunning) {
+      animationRunning = true
+      requestAnimationFrame(stepAnimation);
+    }
   }
 </script>
 
