@@ -161,6 +161,7 @@ input[type="range"] {
     width: 1em;
     height: 1em;
     background: var(--col-highlight);
+    border: none;
     border-radius: 100%;
     cursor: pointer;
     box-shadow: var(--shadow-fg);
@@ -172,6 +173,7 @@ input[type="range"] {
     width: 1em;
     height: 1em;
     background: var(--col-highlight);
+    border: none;
     border-radius: 100%;
     cursor: pointer;
     box-shadow: var(--shadow-fg);
