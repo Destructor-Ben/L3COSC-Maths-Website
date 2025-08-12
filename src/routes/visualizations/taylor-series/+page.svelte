@@ -101,13 +101,11 @@
     previousIterations = iterations;
     iterations = newIterations;
 
-    // Reset the animation
-    animationProgress = 0;
-    animationStart = undefined;
-
     // Stop the animation if we don't want to play one and don't start a new one
     if (!playAnimation) {
       animationRunning = false;
+      animationProgress = 1;
+      animationStart = undefined;
       return;
     }
     
@@ -115,7 +113,9 @@
     // Stops excess calls to requestAnimationFrame
     // It won't have a visual effect if that does happen but it isn't ideal
     if (!animationRunning) {
-      animationRunning = true
+      animationRunning = true;
+      animationProgress = 0;
+      animationStart = undefined;
       requestAnimationFrame(stepAnimation);
     }
   }
@@ -133,7 +133,7 @@
   {#snippet inputs()}
     <div>Function</div>
     <div>
-      <select name="test" id="test" bind:value={currentFunctionName}>
+      <select bind:value={currentFunctionName}>
         <option value="sin">sin(x)</option>
         <option value="cos">cos(x)</option>
         <option value="exp">e^x</option>
