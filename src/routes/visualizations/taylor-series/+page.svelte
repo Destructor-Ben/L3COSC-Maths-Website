@@ -66,7 +66,6 @@
   let animationRunning = false; // Whether the animation is currently running
   let animationStart: DOMHighResTimeStamp | undefined; // The time the animation started
 
-  // TODO: fix the animation if the button is spammed
   function stepAnimation(timestamp: DOMHighResTimeStamp) {
     if (!animationRunning)
       return;
@@ -117,6 +116,14 @@
       animationProgress = 0;
       animationStart = undefined;
       requestAnimationFrame(stepAnimation);
+    }
+    // Handle the animation if it is already running
+    // Current behaviour is just to restart the animation
+    // TODO: make the animation continue from where it left off
+    else {
+      animationRunning = true;
+      animationProgress = 0;
+      animationStart = undefined;
     }
   }
 </script>
