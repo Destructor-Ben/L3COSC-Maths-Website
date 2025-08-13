@@ -12,6 +12,9 @@ export const Sin: Function = (x: number) => Math.sin(x);
 export const Cos: Function = (x: number) => Math.cos(x);
 export const Tan: Function = (x: number) => Math.tan(x);
 export const Exp: Function = (x: number) => Math.exp(x);
+export const Log: Function = (x: number) => Math.log(x);
+export const Sqrt: Function = (x: number) => Math.sqrt(x);
+
 
 // Keep in mind the 0th derivative is the function itself
 export function getSinDerivative(n: number): Function {
