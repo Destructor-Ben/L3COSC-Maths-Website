@@ -1,5 +1,6 @@
 <script>
   import { page } from "$app/state";
+  import { base } from "$app/paths";
   import Title from "$lib/components/Title.svelte";
 </script>
 
@@ -13,7 +14,7 @@
   <!-- Display the error code and message -->
   <div class="mg error-info">
     <h2>{page.status} - {page.error?.message}</h2>
-    <a href="/" class="button">Home</a>
+    <a href="{base}/" class="button">Home</a>
   </div>
 </div>
 

@@ -1,3 +1,7 @@
+<script>
+  import { base } from "$app/paths";
+</script>
+
 <header class="mg">
   <a href="/" class="logo-link">
     <img src="/favicon.svg" alt="Logo">
@@ -5,9 +9,9 @@
   </a>
 
   <div class="links">
-    <a href="/">Home</a>
-    <a href="/visualizations">Visualizations</a>
-    <a href="/about">About</a>
+    <a href="{base}/">Home</a>
+    <a href="{base}/visualizations">Visualizations</a>
+    <a href="{base}/about">About</a>
   </div>
 </header>
 

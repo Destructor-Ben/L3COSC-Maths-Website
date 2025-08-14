@@ -1,12 +1,16 @@
+<script>
+  import { base } from "$app/paths";
+</script>
+
 <footer class="mg">
   <p>Copyright © 2025 Destructor_Ben</p>
 
   <div class="links">
-    <a class="link" href="/about/eula">EULA</a>
+    <a class="link" href="{base}/about/eula">EULA</a>
     |
-    <a class="link" href="/about/privacy-policy">Privacy Policy</a>
+    <a class="link" href="{base}/about/privacy-policy">Privacy Policy</a>
     |
-    <a class="link" href="/about/terms-of-use">Terms Of Use</a>
+    <a class="link" href="{base}/about/terms-of-use">Terms Of Use</a>
     |
     <a class="link" href="https://github.com/Destructor-Ben/L3COSC-Maths-Website">Source Code</a>
   </div>

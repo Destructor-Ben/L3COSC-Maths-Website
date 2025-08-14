@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import { base } from "$app/paths";
 
   interface Props {
     title: string; // The label below the thumnail
@@ -21,7 +22,7 @@
   This is because the more coming soon card isn't a link but needs to have similar styling.
 -->
 {#if isALink}
-  <a class="mg visualization-button is-link" href={link}>
+  <a class="mg visualization-button is-link" href={base + link}>
     <div class=thumbnail-container>
       {@render children()}
     </div>
