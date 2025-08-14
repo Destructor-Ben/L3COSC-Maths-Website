@@ -23,6 +23,7 @@
     margin: 1em;
     margin-bottom: 0;
 
+    /* Direct children should be flex boxes too */
     & > * {
       display: flex;
       align-items: center;
@@ -30,6 +31,10 @@
       gap: 1em;
     }
 
+    /*
+      It's hard to make the buttons equally spaced from the top and bottom versus the right,
+      so we calculate it.
+     */
     --header-height: 75px;
     --button-height: 60px;
     --button-padding: calc((var(--header-height) - var(--button-height)) / 2);
@@ -49,7 +54,7 @@
       margin-right: var(--button-padding);
     }
 
-    /* Heading buttons */
+    /* Heading buttons - these styles are mostly copied from regular buttons but are modified quite a bit */
     a:not(.logo-link) {
       height: var(--button-height);
       padding: 0em 1em;
