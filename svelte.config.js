@@ -14,5 +14,11 @@ export default {
     adapter: adapter({
       fallback: "404.html", // Needed for GitHub Pages
     }),
+
+    // Set the prefix for all pages in the url (such as '/phobos/' for GitHub Pages so it can be hosted there)
+    // Don't set it in the development environment since we don't need it there
+    paths: {
+      base: process.argv.includes('dev') ? '' : process.env.BASE_PATH
+    },
   },
 };
