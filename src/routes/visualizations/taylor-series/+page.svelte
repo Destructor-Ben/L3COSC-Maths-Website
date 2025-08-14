@@ -119,7 +119,6 @@
     }
     // Handle the animation if it is already running
     // Current behaviour is just to restart the animation
-    // TODO: make the animation continue from where it left off
     else {
       animationRunning = true;
       animationProgress = 0;
