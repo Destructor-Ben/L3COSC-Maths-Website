@@ -3,8 +3,8 @@
 </script>
 
 <header class="mg">
-  <a href="/" class="logo-link">
-    <img src="/favicon.svg" alt="Logo">
+  <a href="{base}/" class="logo-link">
+    <img src="{base}/favicon.svg" alt="Logo">
     <h1>Phobos</h1>
   </a>
 
