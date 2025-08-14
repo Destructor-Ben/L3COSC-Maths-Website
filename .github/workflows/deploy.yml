@@ -26,6 +26,8 @@ jobs:
         run: deno install
 
       - name: Build site
+        env:
+          BASE_PATH: '/${{ github.event.repository.name }}'
         run: deno task build
 
       - name: Upload Build Artifact
