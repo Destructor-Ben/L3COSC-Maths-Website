@@ -11,26 +11,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - name: Install Deno
+      - uses: denoland/setup-deno@v2
         with:
- node-version: 20
- cache: npm
+          deno-version: v2.x
 
       - name: Install dependencies
         run: npm i
 
       - name: Build
         env:
- BASE_PATH: '/${{ github.event.repository.name }}'
-        run: |
- npm run build
+          BASE_PATH: '/${{ github.event.repository.name }}'
+        run: deno task build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
- # this should match the `pages` option in your adapter-static options
- path: 'build/'
+          # this should match the `pages` option in your adapter-static options
+          path: 'build/'
 
   deploy:
     needs: build_site
