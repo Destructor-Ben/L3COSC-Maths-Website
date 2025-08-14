@@ -7,11 +7,12 @@
 
 <div class="error-root">
   <div class="mg">
-    <div>
-      <h1>An Error Occurred</h1>
-      <h2>{page.status} - {page.error?.message}</h2>
-    </div>
-    
+    <h1>An Error Occurred</h1>
+  </div>
+  
+  <!-- Display the error code and message -->
+  <div class="mg error-info">
+    <h2>{page.status} - {page.error?.message}</h2>
     <a href="/" class="button">Home</a>
   </div>
 </div>
@@ -24,18 +25,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 5em;
 
-    .mg {
+    h1 {
+      padding: 0.25em;
+      font-size: 5rem;
+    }
+
+    .error-info {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 20vh;
-      padding: 3em;
-    }
-
-    h1 {
-      font-size: 5rem;
+      gap: 1em;
+      padding: 2em;
     }
   }
 </style>

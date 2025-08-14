@@ -8,7 +8,7 @@
 
   let { children }: { children: Snippet } = $props();
 
-  // Update JS colours to match CSS
+  // Update JS colours to match CSS when the page loads
   $effect(Colors.calculateColors);
 </script>
 
@@ -24,6 +24,7 @@
 
 <style>
   #root {
+    /* Take up at least the entire screen height */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
