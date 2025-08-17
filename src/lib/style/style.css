@@ -71,7 +71,7 @@ ul {
 /* Horizontal rule */
 hr {
   width: 100%;
-  border: 2px solid var(--col-highlight);
+  border: var(--hr-size) solid var(--col-border);
   border-radius: 1000rem;
   margin: 1em 0em;
   box-shadow: var(--shadow-fg);
@@ -160,7 +160,7 @@ input[type="range"] {
 
     width: 1em;
     height: 1em;
-    background: var(--col-highlight);
+    background-color: var(--col-highlight);
     border: none;
     border-radius: 100%;
     cursor: pointer;
@@ -172,7 +172,7 @@ input[type="range"] {
 
     width: 1em;
     height: 1em;
-    background: var(--col-highlight);
+    background-color: var(--col-highlight);
     border: none;
     border-radius: 100%;
     cursor: pointer;

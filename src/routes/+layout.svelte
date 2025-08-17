@@ -1,15 +1,15 @@
 <script lang="ts">
   import "$lib/style/variables.css";
   import "$lib/style/style.css";
-  import * as Colors from "$lib/colors";
+  import * as Styles from "$lib/styles";
   import { type Snippet } from "svelte";
   import Header from "./Header.svelte";
   import Footer from "./Footer.svelte";
 
   let { children }: { children: Snippet } = $props();
 
-  // Update JS colours to match CSS when the page loads
-  $effect(Colors.calculateColors);
+  // Update JS styles to match CSS when the page loads
+  $effect(Styles.calculateStyles);
 </script>
 
 <div id="root">

@@ -9,18 +9,18 @@
   /* Colours */
   --col-text: #fefefe;
   --col-heading: white;
+
   --col-bg: #212129;
   --col-mg: #343440;
   --col-fg: #454552;
+
   --col-hover: color-mix(in srgb, var(--col-fg), white 10%);
   --col-highlight: color-mix(in srgb, var(--col-fg), white 20%);
+  --col-border: var(--col-highlight);
 
   --col-red: #ff0d21;
   --col-green: #1dff0d;
   --col-blue: #0d76ff;
-  --col-cyan: #0df7ff;
-  --col-magenta: #ff0d9e;
-  --col-yellow: #fff30d;
 
   --col-link: rgb(52, 177, 255);
   --col-link-visited: #af64f5;
@@ -29,31 +29,38 @@
   /* Shadows */
   --shadow-fg: rgba(0, 0, 0, 0.15) 0px 3px 6px;
   --shadow-mg: rgba(0, 0, 0, 0.25) 0px 3px 8px;
-  --shadow-big-math: 2px 2px 3px rgba(0,0,0,0.3);
+  --shadow-big-math: 2px 2px 3px rgba(0,0,0,0.15);
 
   /* Miscellaneous */
   --transition-duration: 250ms;
   --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
 
-  --border: 3px solid var(--col-highlight);
+  --border: 3px solid var(--col-border);
+  --hr-size: 2px;
 
   --article-width: 768px;
   --article-padding: 1.25em;
 }
 
 /* Light mode - applied if the operating system wants to use light mode */
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     --col-text: #0a0a0a;
     --col-heading: black;
-    --col-bg: #ffffff;
-    --col-mg: #f9f9f9;
-    --col-fg: #f1f1f1;
-    --col-hover: color-mix(in srgb, var(--col-fg), black 10%);
-    --col-highlight: color-mix(in srgb, var(--col-fg), black 20%);
+
+    --col-bg: #e0e0e4;
+    --col-mg: #f0f0f2;
+    --col-fg: #ffffff;
+
+    --col-hover: color-mix(in srgb, var(--col-fg), black 5%);
+    --col-highlight: color-mix(in srgb, var(--col-fg), black 10%);
+    --col-border: color-mix(in srgb, var(--col-fg), var(--col-text) 40%);
 
     --col-link: #0000EE;
     --col-link-visited: #551A8B;
     --col-link-selected: #FF0000;
+
+    --border: 2px solid var(--col-border);
+    --hr-size: 1px;
   }
 }

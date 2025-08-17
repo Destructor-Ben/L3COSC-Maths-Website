@@ -1,7 +1,7 @@
 <script lang="ts">
   import Graph from "$lib/components/Graph.svelte";
   import { Math } from "svelte-math";
-  import * as Colors from "$lib/colors";
+  import * as Styles from "$lib/styles";
   import { Sin } from "$lib/maths/functions";
   import type { Domain } from "$lib/maths/function";
   import { lerp } from "$lib/maths/lerp";
@@ -89,7 +89,7 @@
   /*functions={[
     {
       name: "background",
-      color: () => "red",//Colors.ContrastRed, TODO, doesn't work
+      color: () => "red",//Styles.ContrastRed, TODO, doesn't work
       func: Sin,
     }
   ]}*/

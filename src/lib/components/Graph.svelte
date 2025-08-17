@@ -1,5 +1,5 @@
 <script lang="ts">
-  import * as Colors from "../colors";
+  import * as Styles from "../styles";
   import type { Domain, DisplayFunction } from "$lib/maths/function";
   import type { Point } from "$lib/maths/point";
   import { getColorsHaveLoaded } from "$lib/global-state.svelte";
@@ -110,7 +110,7 @@
 
     // Draw the line
     c.resetTransform();
-    c.strokeStyle = Colors.TextColor;
+    c.strokeStyle = Styles.TextColor;
     c.lineWidth = 3;
     c.lineCap = "round";
     c.lineJoin = "round";
@@ -155,7 +155,7 @@
     c.scale(arrowScale, arrowScale);
 
     c.strokeStyle = "";
-    c.fillStyle = Colors.TextColor;
+    c.fillStyle = Styles.TextColor;
     c.fill(arrowPath);
   }
 
@@ -184,7 +184,7 @@
 
     // Draw
     c.resetTransform();
-    c.fillStyle = Colors.TextColor;
+    c.fillStyle = Styles.TextColor;
     c.font = "20px math";
     c.textAlign = "left";
     c.textBaseline = "middle";
@@ -277,7 +277,7 @@
 
     // Background
     c.resetTransform();
-    c.fillStyle = Colors.BackgroundColor;
+    c.fillStyle = Styles.BackgroundColor;
     c.fillRect(0, 0, width, height);
 
     drawAxes(c);

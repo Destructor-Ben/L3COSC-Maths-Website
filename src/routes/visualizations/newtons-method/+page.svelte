@@ -1,6 +1,6 @@
 <script lang="ts">
   import VisualizationPage from "../VisualizationPage.svelte";
-  import * as Colors from "$lib/colors";
+  import * as Styles from "$lib/styles";
   import * as Functions from "$lib/maths/functions";
   import * as latex from "$lib/maths/latex";
   import { taylor } from "$lib/maths/taylor";
@@ -54,12 +54,12 @@
     [
       {
         name: "f(x)",
-        color: () => Colors.ContrastRed,
+        color: () => Styles.ContrastRed,
         func: currentFunction,
       },
       {
         name: "slope(x)",
-        color: () => Colors.ContrastBlue,
+        color: () => Styles.ContrastBlue,
         // Taylor series iteration 1 is just a tangent line
         func: (x: number) => taylor(x, xValue, 1, getFunctionDerivative()),
       }

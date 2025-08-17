@@ -1,9 +1,9 @@
 // A bunch of latex notation for various visualizations
 
-import * as Colors from "$lib/colors";
+import * as Styles from "$lib/styles";
 
 // TODO: add colors
-const test = `\\color{${Colors.ContrastRed}}`;
+const test = `\\color{${Styles.ContrastRed}}`;
 
 export const taylorSeries = `f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!} (x - a)^n`;
 export const newtonsMethod = "x_{n+1} = x_n - \\frac{f(x_n)}{f'(x_n)}";

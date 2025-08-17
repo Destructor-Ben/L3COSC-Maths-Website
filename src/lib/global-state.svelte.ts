@@ -1,6 +1,7 @@
 // Used to re-render canvases when the colors load
 let colorsHaveLoaded = $state(false);
 
+// Return an object with a getter and setter for the state, since it can't be exported directly
 export function getColorsHaveLoaded()
 {
   return {

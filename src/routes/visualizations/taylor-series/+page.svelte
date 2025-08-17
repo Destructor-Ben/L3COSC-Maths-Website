@@ -1,6 +1,6 @@
 <script lang="ts">
   import VisualizationPage from "../VisualizationPage.svelte";
-  import * as Colors from "$lib/colors";
+  import * as Styles from "$lib/styles";
   import * as Functions from "$lib/maths/functions";
   import * as latex from "$lib/maths/latex";
   import { taylor } from "$lib/maths/taylor";
@@ -46,12 +46,12 @@
     [
       {
         name: "f(x)",
-        color: () => Colors.ContrastRed,
+        color: () => Styles.ContrastRed,
         func: currentFunction,
       },
       {
         name: "taylor(x)",
-        color: () => Colors.ContrastBlue,
+        color: () => Styles.ContrastBlue,
         func: (x: number) => lerp(
           taylor(x, a, previousIterations, getFunctionDerivative()),
           taylor(x, a, iterations, getFunctionDerivative()),
