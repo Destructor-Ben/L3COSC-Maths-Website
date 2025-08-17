@@ -69,8 +69,8 @@
 
       /* Interactive colours (hovering and when clicked) */
       &:hover {
-        border-color: var(--col-highlight);
-        background-color: var(--col-fg);
+        border-color: var(--col-border);
+        background-color: var(--col-hover);
       }
 
       &:active {

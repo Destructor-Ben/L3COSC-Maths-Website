@@ -14,8 +14,8 @@
   --col-mg: #343440;
   --col-fg: #454552;
 
-  --col-hover: color-mix(in srgb, var(--col-fg), white 10%);
-  --col-highlight: color-mix(in srgb, var(--col-fg), white 20%);
+  --col-hover: color-mix(in srgb, var(--col-fg), white 10%); /* Hover colour */
+  --col-highlight: color-mix(in srgb, var(--col-fg), white 20%); /* Clicked colour */
   --col-border: var(--col-highlight);
 
   --col-red: #ff0d21;
