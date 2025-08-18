@@ -188,5 +188,4 @@ body, html, :root {
   background-color: var(--col-bg);
   z-index: -999;
   position: relative;
-  scroll-padding: 100px;
 }
