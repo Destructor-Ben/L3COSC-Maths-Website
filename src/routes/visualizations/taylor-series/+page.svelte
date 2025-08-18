@@ -61,6 +61,8 @@
     ]
   );
 
+  // #region Animation
+
   const animationTime = 1000; // How long the animation takes in ms
 
   let animationRunning = false; // Whether the animation is currently running
@@ -125,6 +127,8 @@
       animationStart = undefined;
     }
   }
+
+  // #endregion
 </script>
 
 <VisualizationPage title="Taylor Series" graphID="taylor-series-graph" functions={displayFunctions}>
