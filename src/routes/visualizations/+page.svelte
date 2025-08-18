@@ -13,16 +13,6 @@
     <Math latex={latex.taylorSeries} displayMode />
   </VisualizationLink>
 
-  <VisualizationLink title="Newton's Method" link="/visualizations/newtons-method">
-    <Math latex={latex.newtonsMethod} displayMode />
-  </VisualizationLink>
-
-  <VisualizationLink title="Mean Value & Rolle's Theorem" link="/visualizations/mvt-and-rolles-theorem">
-    <Math latex={latex.mvtAndRollesTheorem} displayMode />
-    <br />
-    <Math latex={latex.mvtAndRollesTheoremPart2} displayMode />
-  </VisualizationLink>
-
   <!-- This is a special card that isn't a link but will use similar styling -->
   <VisualizationLink title="More Coming Soon" link="" isALink={false}>
     <h3>More Coming Soon</h3>
