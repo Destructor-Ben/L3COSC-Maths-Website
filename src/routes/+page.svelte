@@ -30,15 +30,8 @@
   </div>
 </section>
 
-<!-- Second section, explains values -->
+<!-- Second section, shows some demos & explains values -->
 <section id="section-2">
-  <div class="mg">
-    <h2>Open Source Knowledge without a Pricetag</h2>
-  </div>
-</section>
-
-<!-- Third section, shows some demos -->
-<section id="section-3">
   <div class="mg explanation">
     <h2>Handcrafted Visualizations</h2>
     <p>Interactive visualizations handcrafted to be as intuitive as possible to learn with.</p>
@@ -119,9 +112,6 @@
   }
 
   #section-2 {
-  }
-
-  #section-3 {
     display: flex;
     flex-direction: row;
     align-items: center;
