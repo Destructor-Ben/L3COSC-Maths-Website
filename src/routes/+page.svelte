@@ -3,7 +3,7 @@
   import type { Domain } from "$lib/maths/function";
   import * as Styles from "$lib/styles";
   import * as Functions from "$lib/maths/functions";
-  import { lerp } from "$lib/maths/lerp";
+  import { lerp, smoothstep } from "$lib/maths/lerp";
   import { base } from "$app/paths";
   import { Math } from "svelte-math";
 
@@ -17,16 +17,17 @@
   let animationRunning = false; // Whether the animation is currently running
   let animationStart: DOMHighResTimeStamp | undefined; // The time the animation started
 
-  let getGraphDomains = $derived((a: number, b: number): Domain[] => {
+  function getGraphDomains(a: number, b: number): Domain[]
+  {
     return [
       {
         start: a,
-        end: b,//lerp(a, b, 0),
+        end: lerp(a, b, smoothstep(animationProgress)),
         includeStart: true,
         includeEnd: true,
       }
     ];
-  });
+  }
 
   function handleOnScroll()
   {

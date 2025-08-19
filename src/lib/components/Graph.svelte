@@ -232,6 +232,12 @@
         if (!domain.includeEnd)
           end -= epsilon;
 
+        // Fix for if start == end
+        // Otherwise, stepSize ends up being equal to 0
+        // TODO: this check should be done by seeing how small stepSize is
+        if (start === end)
+          return;
+
         // Calculate the step size
         // TODO: this should be dynamic and increase when the gradient is steeper
         const steps = 300; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
