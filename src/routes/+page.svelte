@@ -2,11 +2,83 @@
   import Graph from "$lib/components/Graph.svelte";
   import type { Domain } from "$lib/maths/function";
   import * as Styles from "$lib/styles";
-  import { Sin } from "$lib/maths/functions";
+  import * as Functions from "$lib/maths/functions";
   import { lerp } from "$lib/maths/lerp";
   import { base } from "$app/paths";
   import { Math } from "svelte-math";
+
+  let section2Element: HTMLElement;
+  const animationTime = 1000; // How long the animation takes in ms
+
+  // Whether the animation has been triggered
+  // Is true even after the animation has finished so it isn't triggered again
+  let scrollAnimationTriggered = false;
+  let animationProgress = $state(0); // The animation progress between 0 and 1
+  let animationRunning = false; // Whether the animation is currently running
+  let animationStart: DOMHighResTimeStamp | undefined; // The time the animation started
+
+  let getGraphDomains = $derived((a: number, b: number): Domain[] => {
+    return [
+      {
+        start: a,
+        end: b,//lerp(a, b, 0),
+        includeStart: true,
+        includeEnd: true,
+      }
+    ];
+  });
+
+  function handleOnScroll()
+  {
+    if (!document.scrollingElement)
+      return;
+
+    const scrollAmount = document.scrollingElement.scrollTop;
+
+    // Trigger the scrolling animation
+    if (!scrollAnimationTriggered && scrollAmount >= section2Element.offsetTop)
+    {
+      scrollAnimationTriggered = true;
+      startScrollingAnimation();
+    }
+  }
+
+  // Start the scrolling animation
+  function startScrollingAnimation()
+  {
+    animationRunning = true;
+    animationProgress = 0;
+    animationStart = undefined;
+    requestAnimationFrame(stepAnimation);
+  }
+
+  function stepAnimation(timestamp: DOMHighResTimeStamp) {
+    if (!animationRunning)
+      return;
+
+    if (animationStart === undefined)
+      animationStart = timestamp;
+
+    // Time in ms since the animation started
+    const elapsed = timestamp - animationStart!;
+
+    // End the animation
+    if (elapsed >= animationTime) {
+      animationProgress = 1;
+      animationRunning = false;
+      animationStart = undefined;
+      return;
+    }
+
+    // Set the animation progress
+    animationProgress = elapsed / animationTime;
+
+    // Request next frame
+    requestAnimationFrame(stepAnimation);
+  }
 </script>
+
+<svelte:document onscroll={handleOnScroll} />
 
 <svelte:head>
   <title>Phobos</title>
@@ -31,15 +103,16 @@
 </section>
 
 <!-- Second section, shows some demos & explains values -->
-<section id="section-2">
+<section id="section-2" bind:this={section2Element}>
   <div class="mg explanation">
-    <h2>Handcrafted Visualizations</h2>
-    <p>Interactive visualizations handcrafted to be as intuitive as possible to learn with.</p>
+    <h2>Open Source Knowledge Without a Pricetag</h2>
+    <p>Free and open source information with no cost at all.</p>
   </div>
 
   <div class="mg">
-    <h2>Check Some Out</h2>
-    <a class="button" href="{base}/visualizations">Click here</a>
+    <h2>Handcrafted Visualizations</h2>
+    <p>Interactive visualizations handcrafted to be as intuitive as possible to learn with.</p>
+    <a class="button" href="{base}/visualizations">See Them Here</a>
 
     <Graph
       width={640}
@@ -47,6 +120,27 @@
       allowsUserInput={false}
       hasNiceBorders={true}
       id="visualizations-graph"
+      initialScale={{ x: 1 / 5, y: 1 / 5}}
+      functions={[
+        {
+          name: "sin(x)",
+          color: () => Styles.ContrastRed,
+          func: Functions.Sin,
+          getDomains: getGraphDomains,
+        },
+        {
+          name: "cos(x)",
+          color: () => Styles.ContrastBlue,
+          func: Functions.Cos,
+          getDomains: getGraphDomains,
+        },
+        {
+          name: "exp(x)",
+          color: () => Styles.ContrastGreen,
+          func: Functions.Exp,
+          getDomains: getGraphDomains,
+        },
+      ]}
     />
   </div>
 </section>
@@ -122,13 +216,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: space-between;
       gap: 1em;
 
-      height: 525px;
+      height: 550px;
     }
 
     .explanation {
       max-width: 30vw;
+      justify-content: flex-start;
     }
   }
 </style>
