@@ -3,6 +3,7 @@
   import type { Domain } from "$lib/maths/function";
   import * as Styles from "$lib/styles";
   import * as Functions from "$lib/maths/functions";
+  import * as latex from "$lib/maths/latex";
   import { lerp, smoothstep } from "$lib/maths/lerp";
   import { base } from "$app/paths";
   import { Math } from "svelte-math";
@@ -107,7 +108,24 @@
 <section id="section-2" bind:this={section2Element}>
   <div class="mg explanation">
     <h2>Open Source Knowledge Without a Pricetag</h2>
-    <p>Free and open source information with no cost at all.</p>
+
+    <div class="explanation-content">
+      <p>
+        Free and open source information with no cost at all.
+        No paywalls and no barriers, just knowledge.
+      </p>
+
+      <p class="math-big"><Math latex={latex.taylorSeries} displayMode /></p>
+
+      <p>
+        Designed for New Zealand secondary school and university students.
+        Built for Kiwi, by a Kiwi.
+      </p>
+
+      <p>
+        Visualizations for visual learners, since not everyone learns best through a teacher and a whiteboard.
+      </p>
+    </div>
   </div>
 
   <div class="mg">
@@ -226,6 +244,26 @@
     .explanation {
       max-width: 30vw;
       justify-content: flex-start;
+
+      .explanation-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        gap: 3em;
+
+        p {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .math-big {
+    :global {
+      math {
+        font-size: 1.5em;
+      }
     }
   }
 </style>
