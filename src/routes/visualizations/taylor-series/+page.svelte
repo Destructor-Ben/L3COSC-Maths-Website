@@ -174,8 +174,8 @@
       />
     </div>
 
-    <div><button class="button" onclick={() => setIterations(iterations + 1)}>Next Iteration</button></div>
     <div><button class="button" onclick={() => setIterations(iterations - 1)}>Previous Iteration</button></div>
+    <div><button class="button" onclick={() => setIterations(iterations + 1)}>Next Iteration</button></div>
   {/snippet}
 </VisualizationPage>
 
