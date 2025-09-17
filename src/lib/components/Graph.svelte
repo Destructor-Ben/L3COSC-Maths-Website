@@ -16,13 +16,12 @@
   // Props
   interface Props {
     id: string;
-    width: number;
-    height: number;
-    initialCameraPos?: Point;
+    width: number; // In pixels
+    height: number; // In pixels
+    initialCameraPos?: Point; // In cartesian coordinates
     initialScale?: Point;
     functions?: Array<DisplayFunction>;
     allowsUserInput?: boolean;
-    hasNiceBorders?: boolean; // Sometimes the graph might not need border styling, for example, when used as a background
     minScale?: number;
     maxScale?: number;
     // Maximum distance between the camera position and the origin
@@ -38,7 +37,6 @@
     initialScale = { x: 1, y: 1 },
     functions = [],
     allowsUserInput = true,
-    hasNiceBorders = false,
     minScale = 0.01,
     maxScale = 5,
     maxDst = 100,
@@ -48,7 +46,7 @@
   let cameraPos = $state(initialCameraPos); // In cartesian coordinates
   let scale = $state(initialScale);
 
-  // Set up canvas
+  // Set up canvas when the page loads
   $effect(() => {
     canvas = document.getElementById(id) as HTMLCanvasElement;
     const context = canvas.getContext("2d");
@@ -61,25 +59,16 @@
     height = canvas.height;
   });
 
-  // TODO: rework some of the rendering
-
   // #region Rendering
 
-  function drawAxes(c: CanvasRenderingContext2D) {
-    // Draw each axis
-    drawAxis(1, 0, c);
-    drawAxis(-1, 0, c);
-    drawAxis(0, 1, c);
-    drawAxis(0, -1, c);
-  }
-
-  // TODO: make the line drawing done before the graph so the functions can overlap it, but do everything else after
-  function drawAxis(axisX: number, axisY: number, c: CanvasRenderingContext2D) {
-    const origin = toCanvasCoords(0, 0); // Where the origin is on the screen
+  // Get the end of an axis, handling padding and clamping
+  // axisX or axisY should be -1 or 1, not both, e.g. (-1, 0), (1, 0), (0, -1) or (0, 1)
+  function getAxisEndpoint(axisX: number, axisY: number) : Point
+  {
     const linePadding = 15;
     const minDstFromOrigin = 50;
+    const origin = toCanvasCoords(0, 0); // Where the origin is on the screen
 
-    // Calculate the end point of the axis line
     let endPoint = {
       x: axisX === 0 ? origin.x : width * (axisX * 0.5 + 0.5),
       y: axisY === 0 ? origin.y : height * (axisY * 0.5 + 0.5),
@@ -111,105 +100,39 @@
       endPoint.x = origin.x + minDstFromOrigin;
     }
 
+    return endPoint;
+  }
+
+  function drawAxes() {
+    drawAxis(1, 0);
+    drawAxis(-1, 0);
+    drawAxis(0, 1);
+    drawAxis(0, -1);
+  }
+
+  function drawAxis(axisX: number, axisY: number) {
+    const origin = toCanvasCoords(0, 0);
+    const endPoint = getAxisEndpoint(axisX, axisY);
+
     // Draw the line
-    c.resetTransform();
-    c.strokeStyle = Styles.TextColor;
-    c.lineWidth = 3;
-    c.lineCap = "round";
-    c.lineJoin = "round";
-    c.beginPath();
-    c.moveTo(origin.x, origin.y);
-    c.lineTo(endPoint.x, endPoint.y);
-    c.stroke();
-
-    // Draw the arrow head
-    drawArrow(c, axisX, axisY, endPoint);
-
-    // Draw the label for the axis
-    drawLabel(c, axisX, axisY, endPoint);
+    ctx.resetTransform();
+    ctx.strokeStyle = Styles.TextColor;
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(origin.x, origin.y);
+    ctx.lineTo(endPoint.x, endPoint.y);
+    ctx.stroke();
   }
 
-  function drawArrow(c: CanvasRenderingContext2D, axisX: number, axisY: number, endPoint: Point) {
-    const arrowPathSize = 512;
-    const arrowScale = 1 / 15;
-    const arrowPath = new Path2D(
-      "M414 321.94L274.22 158.82a24 24 0 00-36.44 0L98 321.94c-13.34 15.57-2.28 39.62 18.22 39.62h279.6c20.5 0 31.56-24.05 18.18-39.62z"
-    );
+  function drawFunctions() {
+    ctx.resetTransform();
 
-    let rotation = 0;
-    let offsetSigns = { x: 1, y: 1 };
-
-    // Hardcoded ;-;
-    if (axisY === 1) {
-      rotation = Math.PI;
-      offsetSigns.x = -1;
-      offsetSigns.y = -1;
-    } else if (axisX != 0) {
-      rotation = (Math.PI / 2) * Math.sign(axisX);
-      offsetSigns.x = -Math.sign(axisX);
-      offsetSigns.y = axisX == -1 ? -1 : 1;
-    }
-
-    c.resetTransform();
-    c.translate(
-      endPoint.x - ((arrowPathSize * arrowScale) / 2) * offsetSigns.x,
-      endPoint.y - ((arrowPathSize * arrowScale) / 2) * offsetSigns.y
-    );
-    c.rotate(rotation);
-    c.scale(arrowScale, arrowScale);
-
-    c.strokeStyle = "";
-    c.fillStyle = Styles.TextColor;
-    c.fill(arrowPath);
+    functions.forEach(drawFunction);
   }
 
-  // TODO: improve
-  function drawLabel(c: CanvasRenderingContext2D, axisX: number, axisY: number, endPoint: Point) {
-    // Find label pos
-    let labelPos = endPoint;
-
-    if (axisX === 0) {
-      labelPos.x += 20; // Y axis
-    } else if (axisY === 0) {
-      labelPos.y -= 30; // X axis
-    }
-
-    // Find label text
-    // The y axis is flipped because +y is down on the canvas
-    let label = "";
-    if (axisX === 1) {
-      label = "x";
-    } else if (axisX === -1) {
-      label = "-x";
-    } else if (axisY === 1) {
-      label = "-y";
-    } else if (axisY === -1) {
-      label = "y";
-    }
-
-    // Draw
-    c.resetTransform();
-    c.fillStyle = Styles.TextColor;
-    c.font = "20px math";
-    c.textAlign = "left";
-    c.textBaseline = "middle";
-    c.fillText(label, labelPos.x, labelPos.y);
-  }
-
-  function drawGrid(c: CanvasRenderingContext2D) {
-    // Grid - TODO
-    // TODO: units on the axes
-  }
-
-  function drawFunctions(c: CanvasRenderingContext2D) {
-    c.resetTransform();
-
-    functions.forEach((func) => {
-      drawFunction(func, c);
-    });
-  }
-
-  function drawFunction(func: DisplayFunction, c: CanvasRenderingContext2D) {
+  function drawFunction(func: DisplayFunction) {
     // Find the left and right of the screen in cartesian coordinates
     const minX = fromCanvasCoords(0, 0).x;
     const maxX = fromCanvasCoords(canvas.width, 0).x;
@@ -222,56 +145,144 @@
     }
 
     // Draw each domain
-    domains.forEach((domain) => {
-      // Find start and finish
-      let start = domain.start;
-      let end = domain.end;
+    domains.forEach(domain => drawDomain(func, domain));
+  }
 
-      // If the endpoints can't be included, add/subtract the smallest possible value to them
-      const epsilon = Number.EPSILON * 1000;
-      if (!domain.includeStart) {
-        start += epsilon;
+  // TODO: rework
+  function drawDomain(func: DisplayFunction, domain: Domain) {
+    // Find start and finish
+    let start = domain.start;
+    let end = domain.end;
+
+    // If the endpoints can't be included, add/subtract the smallest possible value to them
+    const epsilon = Number.EPSILON * 1000;
+    if (!domain.includeStart) {
+      start += epsilon;
+    }
+
+    if (!domain.includeEnd) {
+      end -= epsilon;
+    }
+
+    // Fix for if start == end
+    // Otherwise, stepSize ends up being equal to 0
+    // TODO: this check should be done by seeing how small stepSize is
+    if (start === end) {
+      return;
+    }
+
+    // Calculate the step size
+    // TODO: this should be dynamic and increase when the gradient is steeper
+    const steps = 300; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
+    const stepSize = (end - start) / steps;
+
+    for (let x = start; x <= end; x += stepSize) {
+      // Get the coordinate of point on the function
+      const y = func.func(x);
+      const coords = toCanvasCoords(x, y);
+
+      // Start the line
+      if (x === start) {
+        ctx.strokeStyle = func.color();
+        ctx.lineWidth = 5;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        ctx.moveTo(coords.x, coords.y);
+        continue;
       }
 
-      if (!domain.includeEnd) {
-        end -= epsilon;
-      }
+      // Continue drawing
+      ctx.lineTo(coords.x, coords.y);
+    }
 
-      // Fix for if start == end
-      // Otherwise, stepSize ends up being equal to 0
-      // TODO: this check should be done by seeing how small stepSize is
-      if (start === end) {
-        return;
-      }
+    // Finish the line
+    ctx.stroke();
+  }
 
-      // Calculate the step size
-      // TODO: this should be dynamic and increase when the gradient is steeper
-      const steps = 300; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
-      const stepSize = (end - start) / steps;
+  function drawArrowsAndLabels() {
+    const origin = toCanvasCoords(0, 0);
+    const axes = [
+      { x: 1, y: 0 },
+      { x: -1, y: 0 },
+      { x: 0, y: 1 },
+      { x: 0, y: -1 },
+    ];
 
-      for (let x = start; x <= end; x += stepSize) {
-        // Get the coordinate of point on the function
-        const y = func.func(x);
-        const coords = toCanvasCoords(x, y);
+    axes.forEach(axis => {
+      const endPoint = getAxisEndpoint(axis.x, axis.y);
 
-        // Start the line
-        if (x === start) {
-          c.strokeStyle = func.color();
-          c.lineWidth = 5;
-          c.lineCap = "round";
-          c.lineJoin = "round";
-          c.beginPath();
-          c.moveTo(coords.x, coords.y);
-          continue;
-        }
-
-        // Continue drawing
-        c.lineTo(coords.x, coords.y);
-      }
-
-      // Finish the line
-      c.stroke();
+      drawArrow(axis.x, axis.y, endPoint);
+      drawLabel(axis.x, axis.y, endPoint);
     });
+  }
+
+  function drawArrow(axisX: number, axisY: number, endPoint: Point) {
+    const arrowPathSize = 512;
+    const arrowScale = 1 / 15;
+    // Can't load from file easily because of async in JS being frustrating to deal with
+    const arrowPath = new Path2D(
+      "M414 321.94L274.22 158.82a24 24 0 00-36.44 0L98 321.94c-13.34 15.57-2.28 39.62 18.22 39.62h279.6c20.5 0 31.56-24.05 18.18-39.62z"
+    );
+
+    let rotation = 0;
+    let offsetSigns = { x: 1, y: 1 };
+
+    // Hardcoded unfortunately, since the origin of the arrow path is the corner, not centre
+    if (axisY === 1) {
+      rotation = Math.PI;
+      offsetSigns.x = -1;
+      offsetSigns.y = -1;
+    } else if (axisX != 0) {
+      rotation = (Math.PI / 2) * Math.sign(axisX);
+      offsetSigns.x = -Math.sign(axisX);
+      offsetSigns.y = axisX == -1 ? -1 : 1;
+    }
+
+    ctx.resetTransform();
+    ctx.translate(
+      endPoint.x - ((arrowPathSize * arrowScale) / 2) * offsetSigns.x,
+      endPoint.y - ((arrowPathSize * arrowScale) / 2) * offsetSigns.y
+    );
+    ctx.rotate(rotation);
+    ctx.scale(arrowScale, arrowScale);
+
+    ctx.strokeStyle = "";
+    ctx.fillStyle = Styles.TextColor;
+    ctx.fill(arrowPath);
+  }
+
+  // TODO: improve
+  function drawLabel(axisX: number, axisY: number, endPoint: Point) {
+    // Find label pos
+    let labelPos = endPoint;
+
+    if (axisX === 0) {
+      labelPos.x += 20; // Y axis
+    } else if (axisY === 0) {
+      labelPos.y -= 30; // X axis
+    }
+
+    // Find label text
+    // The y axis is flipped because +y is down in canvas coords
+    let label = "";
+    if (axisX === 1) {
+      label = "x";
+    } else if (axisX === -1) {
+      label = "-x";
+    } else if (axisY === 1) {
+      label = "-y";
+    } else if (axisY === -1) {
+      label = "y";
+    }
+
+    // Draw
+    ctx.resetTransform();
+    ctx.fillStyle = Styles.TextColor;
+    ctx.font = "20px math";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "middle";
+    ctx.fillText(label, labelPos.x, labelPos.y);
   }
 
   // Render whenever the graph data changes
@@ -284,16 +295,15 @@
       return;
     }
 
-    const c = ctx!;
-
     // Background
-    c.resetTransform();
-    c.fillStyle = Styles.BackgroundColor;
-    c.fillRect(0, 0, width, height);
+    ctx.resetTransform();
+    ctx.fillStyle = Styles.BackgroundColor;
+    ctx.fillRect(0, 0, width, height);
 
-    drawAxes(c);
-    drawGrid(c);
-    drawFunctions(c);
+    // UI
+    drawAxes();
+    drawFunctions();
+    drawArrowsAndLabels();
   });
 
   // #endregion
@@ -302,6 +312,8 @@
 
   // toCanvasCoords matrix is used to convert cartesian coordinates to canvas coordinates
   // fromCanvasCoords matrix converts from canvas coordinates to cartesian coordinates
+  // To convert between coordinates, turn the inputs into a 1x3 matrix and multiple it
+  // (done by toCanvasCoords and fromCanvasCoords)
 
   // This took ages to get working properly
   let toCanvasCoordsMatrix: Matrix = $derived(
@@ -360,12 +372,13 @@
       return;
     }
 
-    // Move the camera
+    // Move the camera by the mouse delta (in cartesian coordinates)
     const pos = fromCanvasCoords(event.clientX, event.clientY);
     const oldPos = fromCanvasCoords(
       event.clientX - event.movementX,
       event.clientY - event.movementY
     );
+
     cameraPos.x -= pos.x - oldPos.x;
     cameraPos.y -= pos.y - oldPos.y;
 
@@ -379,7 +392,10 @@
       return;
     }
 
+    // Stop the page from scrolling
     event.preventDefault();
+
+    // Find what direction the mouse scrolled in and zoom in/out
     const delta = event.deltaY < 0 ? 1.1 : 0.9;
     scale.x *= delta;
     scale.y *= delta;
@@ -394,7 +410,6 @@
 
 <canvas
   {id}
-  class:has-nice-borders={hasNiceBorders}
   {width}
   {height}
   onmousemove={handleMouseMove}
@@ -402,7 +417,7 @@
 ></canvas>
 
 <style>
-  canvas.has-nice-borders {
+  canvas {
     border-radius: 1em;
     border: var(--border);
     box-shadow: var(--shadow-fg);

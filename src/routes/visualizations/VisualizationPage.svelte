@@ -51,7 +51,6 @@
         width={723}
         height={516}
         initialScale={{ x: 1 / 10, y: 1 / 10 }}
-        hasNiceBorders={true}
         {functions}
       />
     </div>

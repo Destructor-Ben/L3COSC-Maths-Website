@@ -137,7 +137,6 @@
       width={640}
       height={360}
       allowsUserInput={false}
-      hasNiceBorders={true}
       id="visualizations-graph"
       initialScale={{ x: 1 / 5, y: 1 / 5 }}
       functions={[
