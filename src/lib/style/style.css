@@ -1,6 +1,8 @@
 /* Default styles (doesn't apply to maths) */
 :where(:not(math, math *)) {
-  &, &:before, &:after {
+  &,
+  &:before,
+  &:after {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -30,11 +32,16 @@ math {
 /* Allow math to be made big */
 .big-math math {
   font-size: 2rem;
-  text-shadow: var(--shadow-big-math)
+  text-shadow: var(--shadow-big-math);
 }
 
 /* Headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   color: var(--col-heading);
   font-weight: bold;
@@ -78,11 +85,22 @@ hr {
 }
 
 /* Links */
-/* Taken from https://html.spec.whatwg.org/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints */
-.link:link { color: var(--col-link); } /* Unvisited colour */
-.link:visited { color: var(--col-link-visited); } /* Visited colour */
-.link:link:active, .link:visited:active { color: var(--col-link-selected); } /* Selected colour */
-.link:link, .link:visited {
+/* Advice taken from https://html.spec.whatwg.org/multipage/rendering.html#the-css-user-agent-style-sheet-and-presentational-hints */
+.link:link {
+  color: var(--col-link); /* Unvisited colour */
+}
+
+.link:visited {
+  color: var(--col-link-visited); /* Visited colour */
+}
+
+.link:link:active,
+.link:visited:active {
+  color: var(--col-link-selected); /* Selected colour */
+}
+
+.link:link,
+.link:visited {
   text-decoration: underline;
   cursor: pointer;
   transition-property: color;
@@ -98,7 +116,8 @@ hr {
   transition-property: background-color;
   cursor: pointer;
 
-  &, * {
+  &,
+  * {
     text-decoration: none;
   }
 
@@ -182,7 +201,9 @@ input[type="range"] {
 }
 
 /* Styling for the main elements */
-body, html, :root {
+body,
+html,
+:root {
   min-height: 100vh;
   scroll-behavior: smooth;
   background-color: var(--col-bg);

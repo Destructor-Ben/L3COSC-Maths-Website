@@ -27,7 +27,7 @@ jobs:
 
       - name: Build site
         env:
-          BASE_PATH: '/${{ github.event.repository.name }}'
+          BASE_PATH: "/${{ github.event.repository.name }}"
         run: deno task build
 
       - name: Upload Build Artifact

@@ -18,36 +18,33 @@
   let animationRunning = false; // Whether the animation is currently running
   let animationStart: DOMHighResTimeStamp | undefined; // The time the animation started
 
-  function getGraphDomains(a: number, b: number): Domain[]
-  {
+  function getGraphDomains(a: number, b: number): Domain[] {
     return [
       {
         start: a,
         end: lerp(a, b, smoothstep(animationProgress)),
         includeStart: true,
         includeEnd: true,
-      }
+      },
     ];
   }
 
-  function handleOnScroll()
-  {
-    if (!document.scrollingElement)
+  function handleOnScroll() {
+    if (!document.scrollingElement) {
       return;
+    }
 
     const scrollAmount = document.scrollingElement.scrollTop;
 
     // Trigger the scrolling animation
-    if (!scrollAnimationTriggered && scrollAmount >= section2Element.offsetTop)
-    {
+    if (!scrollAnimationTriggered && scrollAmount >= section2Element.offsetTop) {
       scrollAnimationTriggered = true;
       startScrollingAnimation();
     }
   }
 
   // Start the scrolling animation
-  function startScrollingAnimation()
-  {
+  function startScrollingAnimation() {
     animationRunning = true;
     animationProgress = 0;
     animationStart = undefined;
@@ -55,11 +52,13 @@
   }
 
   function stepAnimation(timestamp: DOMHighResTimeStamp) {
-    if (!animationRunning)
+    if (!animationRunning) {
       return;
+    }
 
-    if (animationStart === undefined)
+    if (animationStart === undefined) {
       animationStart = timestamp;
+    }
 
     // Time in ms since the animation started
     const elapsed = timestamp - animationStart!;
@@ -90,10 +89,10 @@
 <section id="section-1" class="first">
   <div class="mg title-card">
     <div class="title">
-      <img src="{base}/favicon.svg" alt="Logo">
+      <img src="{base}/favicon.svg" alt="Logo" />
       <h1>Phobos</h1>
     </div>
-    
+
     <h2>Maths - Visualized</h2>
     <hr />
   </div>
@@ -111,19 +110,20 @@
 
     <div class="explanation-content">
       <p>
-        Free and open source information with no cost at all.
-        No paywalls and no barriers, just knowledge.
+        Free and open source information with no cost at all. No paywalls and no barriers, just
+        knowledge.
       </p>
 
       <p class="math-big"><Math latex={latex.taylorSeries} displayMode /></p>
 
       <p>
-        Designed for New Zealand secondary school and university students.
-        Built for Kiwi, by a Kiwi.
+        Designed for New Zealand secondary school and university students. Built for Kiwi, by a
+        Kiwi.
       </p>
 
       <p>
-        Visualizations for visual learners, since not everyone learns best through a teacher and a whiteboard.
+        Visualizations for visual learners, since not everyone learns best through a teacher and a
+        whiteboard.
       </p>
     </div>
   </div>
@@ -139,7 +139,7 @@
       allowsUserInput={false}
       hasNiceBorders={true}
       id="visualizations-graph"
-      initialScale={{ x: 1 / 5, y: 1 / 5}}
+      initialScale={{ x: 1 / 5, y: 1 / 5 }}
       functions={[
         {
           name: "sin(x)",

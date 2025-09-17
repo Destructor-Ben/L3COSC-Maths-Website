@@ -10,7 +10,7 @@
   <div class="mg">
     <h1>An Error Occurred</h1>
   </div>
-  
+
   <!-- Display the error code and message -->
   <div class="mg error-info">
     <h2>{page.status} - {page.error?.message}</h2>

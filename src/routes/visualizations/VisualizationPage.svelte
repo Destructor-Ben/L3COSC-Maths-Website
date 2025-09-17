@@ -18,7 +18,7 @@
   let { title, explanation, inputs, graphID, functions }: Props = $props();
 </script>
 
-<Title title={title} />
+<Title {title} />
 
 <!--
   A container is needed since we want the content to have a gap, but we can't set it on <main>
@@ -52,7 +52,7 @@
         height={516}
         initialScale={{ x: 1 / 10, y: 1 / 10 }}
         hasNiceBorders={true}
-        functions={functions}
+        {functions}
       />
     </div>
   </div>
@@ -78,10 +78,10 @@
   .content {
     /* Text being too wide makes it hard to read */
     width: var(--article-width);
-    
+
     /* Text requires a larger amount of padding to look nice */
     padding: var(--article-padding);
-    
+
     /* Flex styles */
     display: flex;
     flex-direction: column;
@@ -110,7 +110,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
-    
+
     /* Needs to affect content outside of this component */
     :global {
       /* Elements on the left (usually labels) */

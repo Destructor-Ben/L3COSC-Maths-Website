@@ -2,8 +2,7 @@
 // Used in case functions are not continuous
 // Currently, the only functions used are continuous but in the future,
 // functions such as tan may be used
-export type Domain = 
-{
+export type Domain = {
   start: number;
   end: number;
   includeStart: boolean;
@@ -14,8 +13,7 @@ export type Domain =
 export type Function = (x: number) => number;
 
 // Function displayed in a graph
-export type DisplayFunction = 
-{
+export type DisplayFunction = {
   name: string;
   color: () => string;
   func: Function;

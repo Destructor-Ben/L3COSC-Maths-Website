@@ -9,12 +9,7 @@
     isALink?: boolean; // Used to make a card that doesn't have any functionality
   }
 
-  let {
-    title,
-    link,
-    children,
-    isALink = true
-  }: Props = $props();
+  let { title, link, children, isALink = true }: Props = $props();
 </script>
 
 <!--
@@ -23,7 +18,7 @@
 -->
 {#if isALink}
   <a class="mg visualization-button is-link" href={base + link}>
-    <div class=thumbnail-container>
+    <div class="thumbnail-container">
       {@render children()}
     </div>
 
@@ -31,7 +26,7 @@
   </a>
 {:else}
   <div class="mg visualization-button">
-    <div class=thumbnail-container>
+    <div class="thumbnail-container">
       {@render children()}
     </div>
   </div>
@@ -62,7 +57,7 @@
       align-items: center;
       justify-content: center;
     }
-    
+
     /* Setup properties for transitions (link only) */
     &.is-link {
       transition-property: border-color, background-color;

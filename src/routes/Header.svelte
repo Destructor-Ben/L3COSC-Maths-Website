@@ -4,7 +4,7 @@
 
 <header class="mg">
   <a href="{base}/" class="logo-link">
-    <img src="{base}/favicon.svg" alt="Logo">
+    <img src="{base}/favicon.svg" alt="Logo" />
     <h1>Phobos</h1>
   </a>
 

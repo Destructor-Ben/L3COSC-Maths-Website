@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 :root {
   /* Fonts */
@@ -29,7 +29,7 @@
   /* Shadows */
   --shadow-fg: rgba(0, 0, 0, 0.15) 0px 3px 6px;
   --shadow-mg: rgba(0, 0, 0, 0.25) 0px 3px 8px;
-  --shadow-big-math: 2px 2px 3px rgba(0,0,0,0.15);
+  --shadow-big-math: 2px 2px 3px rgba(0, 0, 0, 0.15);
 
   /* Miscellaneous */
   --transition-duration: 250ms;
@@ -56,9 +56,9 @@
     --col-highlight: color-mix(in srgb, var(--col-fg), black 10%);
     --col-border: color-mix(in srgb, var(--col-fg), var(--col-text) 40%);
 
-    --col-link: #0000EE;
-    --col-link-visited: #551A8B;
-    --col-link-selected: #FF0000;
+    --col-link: #0000ee;
+    --col-link-visited: #551a8b;
+    --col-link-selected: #ff0000;
 
     --border: 2px solid var(--col-border);
     --hr-size: 1px;

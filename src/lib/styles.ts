@@ -24,8 +24,7 @@ const colorsHaveLoaded = getColorsHaveLoaded();
 
 // Sets the JS variables to mirror the CSS variables
 // This could be called whenever the colour theme is changed but not really needed
-export function calculateStyles()
-{
+export function calculateStyles() {
   const styles = window.getComputedStyle(document.body);
 
   TextColor = styles.getPropertyValue("--col-text");
