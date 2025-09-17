@@ -252,7 +252,6 @@
     ctx.fill(arrowPath);
   }
 
-  // TODO: improve
   function drawLabel(axisX: number, axisY: number, endPoint: Point) {
     // Find label pos
     let labelPos = endPoint;
@@ -261,6 +260,11 @@
       labelPos.x += 20; // Y axis
     } else if (axisY === 0) {
       labelPos.y -= 30; // X axis
+    }
+
+    // Additional vertical offset for the -y symbol
+    if (axisY === 1) {
+      labelPos.y -= 5;
     }
 
     // Find label text
@@ -279,8 +283,8 @@
     // Draw
     ctx.resetTransform();
     ctx.fillStyle = Styles.TextColor;
-    ctx.font = "20px math";
-    ctx.textAlign = "left";
+    ctx.font = "20px sans-serif";
+    ctx.textAlign = axisX === 1 ? "right" : "left";
     ctx.textBaseline = "middle";
     ctx.fillText(label, labelPos.x, labelPos.y);
   }
