@@ -148,13 +148,13 @@
     domains.forEach(domain => drawDomain(func, domain));
   }
 
-  // TODO: rework
   function drawDomain(func: DisplayFunction, domain: Domain) {
     // Find start and finish
     let start = domain.start;
     let end = domain.end;
 
     // If the endpoints can't be included, add/subtract the smallest possible value to them
+    // *1000 because I was still having issues using the smallest possible value
     const epsilon = Number.EPSILON * 1000;
     if (!domain.includeStart) {
       start += epsilon;
@@ -164,39 +164,34 @@
       end -= epsilon;
     }
 
-    // Fix for if start == end
-    // Otherwise, stepSize ends up being equal to 0
-    // TODO: this check should be done by seeing how small stepSize is
-    if (start === end) {
+    // Calculate the step size
+    // The step count should dictate how high res the curve is
+    // Too blocky? increase this
+    const steps = 300;
+    const stepSize = (end - start) / steps;
+
+    // Prevents freezing if start === end since it causes an infinite loop below
+    if (stepSize <= 0) {
       return;
     }
 
-    // Calculate the step size
-    // TODO: this should be dynamic and increase when the gradient is steeper
-    const steps = 300; // TODO: this number isn't the exact number, and sometimes the function goes off the side of the screen
-    const stepSize = (end - start) / steps;
+    // Start the curve
+    const startCoord = toCanvasCoords(start, func.func(start));
+    ctx.strokeStyle = func.color();
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(startCoord.x, startCoord.y);
 
+    // Draw curve
     for (let x = start; x <= end; x += stepSize) {
-      // Get the coordinate of point on the function
       const y = func.func(x);
       const coords = toCanvasCoords(x, y);
-
-      // Start the line
-      if (x === start) {
-        ctx.strokeStyle = func.color();
-        ctx.lineWidth = 5;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.beginPath();
-        ctx.moveTo(coords.x, coords.y);
-        continue;
-      }
-
-      // Continue drawing
       ctx.lineTo(coords.x, coords.y);
     }
 
-    // Finish the line
+    // Finish the curve
     ctx.stroke();
   }
 
