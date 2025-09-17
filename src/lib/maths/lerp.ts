@@ -1,4 +1,4 @@
-// Linearly blends between start and end based on t
+// Linearly interpolates between start and end based on t
 export function lerp(start: number, end: number, t: number): number {
     return start + (end - start) * t;
 }
