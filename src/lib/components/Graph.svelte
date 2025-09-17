@@ -63,8 +63,7 @@
 
   // Get the end of an axis, handling padding and clamping
   // axisX or axisY should be -1 or 1, not both, e.g. (-1, 0), (1, 0), (0, -1) or (0, 1)
-  function getAxisEndpoint(axisX: number, axisY: number) : Point
-  {
+  function getAxisEndpoint(axisX: number, axisY: number): Point {
     const linePadding = 15;
     const minDstFromOrigin = 50;
     const origin = toCanvasCoords(0, 0); // Where the origin is on the screen
@@ -145,7 +144,7 @@
     }
 
     // Draw each domain
-    domains.forEach(domain => drawDomain(func, domain));
+    domains.forEach((domain) => drawDomain(func, domain));
   }
 
   function drawDomain(func: DisplayFunction, domain: Domain) {
@@ -204,7 +203,7 @@
       { x: 0, y: -1 },
     ];
 
-    axes.forEach(axis => {
+    axes.forEach((axis) => {
       const endPoint = getAxisEndpoint(axis.x, axis.y);
 
       drawArrow(axis.x, axis.y, endPoint);
@@ -407,13 +406,7 @@
   // #endregion
 </script>
 
-<canvas
-  {id}
-  {width}
-  {height}
-  onmousemove={handleMouseMove}
-  onwheel={handleMouseWheel}
-></canvas>
+<canvas {id} {width} {height} onmousemove={handleMouseMove} onwheel={handleMouseWheel}></canvas>
 
 <style>
   canvas {
