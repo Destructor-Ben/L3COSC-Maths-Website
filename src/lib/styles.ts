@@ -43,5 +43,6 @@ export function calculateStyles()
   ContrastGreen = styles.getPropertyValue("--col-green");
   ContrastBlue = styles.getPropertyValue("--col-blue");
 
+  // Setting this will update the rest of the website because it is reactive state
   colorsHaveLoaded.value = true;
 }
